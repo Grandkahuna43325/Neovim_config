@@ -58,4 +58,7 @@ We are almost finished. You just need to add your openai api key to $OPENAI_API_
 
 `echo export OPENAI_API_KEY=YOUR_API_KEY >> ~/.bashrc && source ~/.bashrc`
 
-If you are using bash and not zsh it schould work.
+If you are using bash and not zsh it schould work, but if you are using zsh paste this command:
+
+`echo export OPENAI_API_KEY=YOUR_API_KEY >> ~/.zshrc && source /.zshrc`
+
