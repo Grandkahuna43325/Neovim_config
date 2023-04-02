@@ -475,7 +475,7 @@ M.custom = {
 
     ["<leader>gcc"] = {
       function()
-        require("nvterm.terminal").send("g++ main.cpp -o main && main", "float")
+        require("nvterm.terminal").send("g++ main.cpp -o main && ./main", "float")
       end,
       "For c++ enjoyers" },
 
