@@ -74,14 +74,14 @@ M.tabufline = {
       function()
         require("nvchad_ui.tabufline").tabuflineNext()
       end,
-      "goto next buffer (that sh*t on the top)",
+      "goto next buffer ",
     },
 
     ["<S-Tab>"] = {
       function()
         require("nvchad_ui.tabufline").tabuflinePrev()
       end,
-      "goto prev buffer (that sh*t on the top)",
+      "goto prev buffer ",
     },
 
     -- close buffer + hide terminal buffer
@@ -89,7 +89,7 @@ M.tabufline = {
       function()
         require("nvchad_ui.tabufline").close_buffer()
       end,
-      "close buffer (that sh*t on the top)",
+      "close buffer ",
     },
   },
 }
