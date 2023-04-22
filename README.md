@@ -27,7 +27,7 @@ Install homebrew with this command:
 
 After installation you schould paste this commands(they will finish installing brew and they will install gcc nvim and ripgrep):
 
-`(echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> /home/kasm-user/.profile && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && brew install gcc && brew install nvim && brew install ripgrep`
+`(echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> ~/.profile && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && brew install gcc && brew install nvim && brew install ripgrep`
 
 If you don't have [nerdfonts](https://www.nerdfonts.com/#home) you really schould install it. I won't cover it here because it's really easy and you can find a ton of articles like [this one](https://ostechnix.com/install-nerd-fonts-to-add-glyphs-in-your-code-on-linux/).
 
