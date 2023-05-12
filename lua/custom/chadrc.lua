@@ -3,9 +3,9 @@ local M = {}
 M.mappings = require "custom.mappings"
 M.plugins = "custom.plugins"
 M.ui = {
-  theme = "falcon",
+  theme = "dark_horizon",
    changed_themes = {
-      falcon = {
+      bearded_arc = {
          base_16 = {
             base00 = "#000000",
          },
@@ -15,5 +15,6 @@ M.ui = {
       },
 
    },
+
 }
 return M
