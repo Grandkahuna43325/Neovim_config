@@ -16,7 +16,7 @@ local options = {
     adaptive_size = false,
     side = "left",
     width = 30,
-    hide_root_folder = true,
+    hide_root_folder = false,
   },
   git = {
     enable = false,
