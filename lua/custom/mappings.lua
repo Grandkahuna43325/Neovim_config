@@ -87,6 +87,19 @@ M.tabufline = {
 			end,
 			"close buffer ",
 		},
+
+		["<leader>at"] = {
+			"<cmd> tabnew <Cr>", "new tab",
+		},
+
+
+		["<leader>>"] = {
+			"<cmd> tabn <Cr>", "next tab",
+		},
+
+		["<leader><"] = {
+			"<cmd> tabp <Cr>", "prev tab",
+		},
 	},
 }
 
