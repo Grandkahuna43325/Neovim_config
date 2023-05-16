@@ -3,7 +3,7 @@ vim.opt.relativenumber = true
 vim.opt.scrolloff = 6
 vim.cmd([[ 
 set nowrap
-
+set linebreak
 
 ]])
 

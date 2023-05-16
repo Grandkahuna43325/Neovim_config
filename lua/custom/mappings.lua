@@ -41,6 +41,11 @@ M.general = {
 		-- new buffer
 		["<leader>b"] = { "<cmd> enew <CR>", "new buffer" },
 		["<leader>ch"] = { "<cmd> NvCheatsheet <CR>", "Mapping cheatsheet" },
+
+
+    -- sessions
+		["<leader>ns"] = { "<cmd> mksession! session.vim <CR>", "Mapping cheatsheet" },
+		["<leader>rs"] = { "<cmd> source session.vim <CR>", "Mapping cheatsheet" },
 	},
 
 	t = {
