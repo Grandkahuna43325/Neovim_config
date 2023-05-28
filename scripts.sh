@@ -1,15 +1,9 @@
 #!/bin/bash
 
-while getopts ":g" opt; do
+while getopts ":gc" opt; do
   case $opt in
     g)
       xdotool key Control_L+Shift+T
-      sleep 1
-      xdotool type "git add ."
-      xdotool key Return
-      sleep 1
-      xdotool type "git commit"
-      xdotool key Return
       sleep 1
       echo "$github_username" | xclip -selection c 
       sleep 1
@@ -25,6 +19,14 @@ while getopts ":g" opt; do
       sleep 1
       xdotool type exit
       sleep 1
+      xdotool key Return
+      ;;
+    c) 
+      xdotool key Control_L+Shift+T
+      sleep 1
+      xdotool type "git add ."
+      xdotool key Return
+      xdotool type "git commit"
       xdotool key Return
       ;;
     \?)

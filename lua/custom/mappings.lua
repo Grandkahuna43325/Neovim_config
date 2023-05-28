@@ -494,7 +494,8 @@ M.custom = {
 			"git commits",
 		},
 
-		["<leader>gcp"] = { "<cmd> !~/.config/nvim/scripts.sh -g<CR>", "Git add commit and push but only for linux users" },
+		["<leader>gac"] = { "<cmd> !~/.config/nvim/scripts.sh -c<CR>", "Git add commit but only for linux users" },
+		["<leader>gcp"] = { "<cmd> !~/.config/nvim/scripts.sh -g<CR>", "Git push but only for linux users" },
 
 		["<leader>gcc"] = {
 			function()
