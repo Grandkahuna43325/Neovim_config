@@ -48,7 +48,11 @@ Now we are going to replace the NvChad config with this one using this two comma
 We are almost finished. You just need to add your openai api key to $OPENAI_API_KEY variable. Follow [this](https://elephas.app/blog/how-to-create-openai-api-keys-cl5c4f21d281431po7k8fgyol0) tutorial and when you finish paste this command:
 
 `echo export OPENAI_API_KEY=YOUR_API_KEY >> ~/.bashrc && source ~/.bashrc`
+`echo export github_username=YOUR_GITHUB_USERNAME >> ~/.bashrc && source ~/.bashrc`
+`echo export github_token=YOUR_GITHUB_TOKEN >> ~/.bashrc && source ~/.bashrc`
 
 If you are using bash and not zsh it schould work, but if you are using zsh paste this command:
 
 `echo export OPENAI_API_KEY=YOUR_API_KEY >> ~/.zshrc && source /.zshrc`
+`echo export github_username=YOUR_GITHUB_USERNAME >> ~/.bashrc && source ~/.bashrc`
+`echo export github_token=YOUR_GITHUB_TOKEN >> ~/.bashrc && source ~/.bashrc`

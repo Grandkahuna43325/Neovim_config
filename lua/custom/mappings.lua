@@ -480,7 +480,7 @@ M.custom = {
 		["<leader>gp"] = {
 			function()
 				require("nvterm.terminal").send(
-					"catclip ~/github/token && git push --set-upstream origin master",
+					"catclip ~/github/token && git push ",
 					"float"
 				)
 			end,
@@ -493,6 +493,8 @@ M.custom = {
 			end,
 			"git commits",
 		},
+
+		["<leader>gcp"] = { "<cmd> !~/.config/nvim/scripts.sh -g<CR>", "Git add commit and push but only for linux users" },
 
 		["<leader>gcc"] = {
 			function()
