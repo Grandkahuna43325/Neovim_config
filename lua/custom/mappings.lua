@@ -502,7 +502,7 @@ M.custom = {
 		},
 		["<leader>="] = { "<cmd> Format <CR>", "Format file" },
 
-		["<leader>em"] = { "<cmd> !brave --app='https://devhints.io/emmet' <CR><CR>", "Format file" },
+		["<leader>em"] = { "<cmd> !brave --app='https://devhints.io/emmet' <CR><CR>", "Emmet cheatsheet" },
 
 
 	},

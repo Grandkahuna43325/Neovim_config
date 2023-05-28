@@ -72,9 +72,6 @@ lspconfig.grammarly.setup({
 --   on_attach = on_attach
 -- })
 
-
-
-
 lspconfig.tsserver.setup({
 	root_dir = function()
 		return vim.loop.cwd()
@@ -83,33 +80,36 @@ lspconfig.tsserver.setup({
 	on_attach = on_attach,
 })
 
-
 lspconfig.rust_analyzer.setup({
 	root_dir = function()
 		return vim.loop.cwd()
 	end,
 	capabilities = capabilities,
 	on_attach = on_attach,
-    settings = {
-        ["rust-analyzer"] = {
-            imports = {
-                granularity = {
-                    group = "module",
-                },
-                prefix = "self",
-            },
-            cargo = {
-                buildScripts = {
-                    enable = true,
-                },
-            },
-            procMacro = {
-                enable = true
-            },
-        }
-    }
+	settings = {
+		["rust-analyzer"] = {
+			imports = {
+				granularity = {
+					group = "module",
+				},
+				prefix = "self",
+			},
+			diagnosticls_settings = {
+				diagnosticls = {
+					disable = true,
+				},
+			},
+			cargo = {
+				buildScripts = {
+					enable = true,
+				},
+			},
+			procMacro = {
+				enable = true,
+			},
+		},
+	},
 })
-
 
 -- {"css", "scss", "less"}
 -- lspconfig.cssls.setup {
