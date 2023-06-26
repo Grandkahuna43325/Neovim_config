@@ -44,8 +44,8 @@ M.general = {
 
 
     -- sessions
-		["<leader>ns"] = { "<cmd> mksession! session.vim <CR>", "Mapping cheatsheet" },
-		["<leader>rs"] = { "<cmd> source session.vim <CR>", "Mapping cheatsheet" },
+		["<leader>ns"] = { "<cmd> mksession! session.vim <CR>", "Create session" },
+		["<leader>rs"] = { "<cmd> source session.vim <CR>", "Load session" },
 	},
 
 	t = {
