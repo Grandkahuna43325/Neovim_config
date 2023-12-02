@@ -1,4 +1,4 @@
-function map(mode, lhs, rhs, opts)
+local function map(mode, lhs, rhs, opts)
     local options = { noremap = true }
     if opts then
         options = vim.tbl_extend("force", options, opts)
@@ -10,7 +10,8 @@ vim.g.mapleader = " "
 
 -- Normal mappings
 map("i", "<C-c>", "<C-c> :w <cr>")
-map("i", "<esc>", "<C-c> :noh <cr>")
+map("i", "jk", "<C-c>")
+map("i", "<esc>", "<C-c> :noh<cr>")
 map("n", "<esc>", ":noh <cr>")
 
 -- Telescope mappings
@@ -21,12 +22,12 @@ map("n", "<Leader>fw", ":Telescope live_grep <cr>")
 map("n", "<Leader>e", ":NvimTreeToggle <cr>")
 
 -- Harpoon mappings
-map("n", "<Leader>a", ":lua require('harpoon.mark').add_file() <cr>")
-map("n", "<Leader>j", ":lua require('harpoon.ui').nav_file(1) <cr>")
-map("n", "<Leader>k", ":lua require('harpoon.ui').nav_file(2) <cr>")
-map("n", "<Leader>l", ":lua require('harpoon.ui').nav_file(3) <cr>")
-map("n", "<Leader>;", ":lua require('harpoon.ui').nav_file(4) <cr>")
-map("n", "<Leader>m", ":Telescope harpoon marks <cr>")
+-- map("n", "<Leader>a", function() harpoon:list():append() end)
+-- map("n", "<Leader>j", ":lua require('harpoon.ui').nav_file(1) <cr>")
+-- map("n", "<Leader>k", ":lua require('harpoon.ui').nav_file(2) <cr>")
+-- map("n", "<Leader>l", ":lua require('harpoon.ui').nav_file(3) <cr>")
+-- map("n", "<Leader>;", ":lua require('harpoon.ui').nav_file(4) <cr>")
+-- map("n", "<Leader>m", ":Telescope harpoon marks <cr>")
 
 
 -- Comment
@@ -36,4 +37,7 @@ map("v", "<Leader>/", ":lua require('Comment.api').toggle.linewise(vim.fn.visual
 --ChatGPT
 map("n", "<Leader>g", ":ChatGPT <cr>")
 map("v", "<Leader>g", "<cmd> ChatGPTEditWithInstructions <cr>")
+
+
+
 

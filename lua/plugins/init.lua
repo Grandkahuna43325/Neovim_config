@@ -9,6 +9,10 @@ require("lazy").setup({
 	},
 
 	{
+		'tpope/vim-fugitive',
+	},
+
+	{
 		'nvim-telescope/telescope.nvim',
 		dependencies = { 'nvim-lua/plenary.nvim' },
 		cmd = 'Telescope',
@@ -29,7 +33,15 @@ require("lazy").setup({
 	},
 
 	{
-		'ThePrimeagen/harpoon',
+		"ThePrimeagen/harpoon",
+		lazy = false,
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		branch = "harpoon2",
+		-- opts = function()
+		-- 	return require "plugins.configs.harpoon"
+		-- end,
 	},
 
 

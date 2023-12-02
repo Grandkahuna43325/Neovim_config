@@ -1,4 +1,4 @@
-require("telescope").load_extension('harpoon')
+-- require("telescope").load_extension('harpoon')
 local actions = require("telescope.actions")
 local telescope = require("telescope")
 local telescopeConfig = require("telescope.config")
