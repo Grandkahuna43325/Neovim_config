@@ -42,8 +42,7 @@ M.general = {
 		["<leader>b"] = { "<cmd> enew <CR>", "new buffer" },
 		["<leader>ch"] = { "<cmd> NvCheatsheet <CR>", "Mapping cheatsheet" },
 
-
-    -- sessions
+		-- sessions
 		["<leader>ns"] = { "<cmd> mksession! session.vim <CR>", "Create session" },
 		["<leader>rs"] = { "<cmd> source session.vim <CR>", "Load session" },
 	},
@@ -94,16 +93,18 @@ M.tabufline = {
 		},
 
 		["<leader>at"] = {
-			"<cmd> tabnew <Cr>", "new tab",
+			"<cmd> tabnew <Cr>",
+			"new tab",
 		},
 
-
 		["<leader>>"] = {
-			"<cmd> tabn <Cr>", "next tab",
+			"<cmd> tabn <Cr>",
+			"next tab",
 		},
 
 		["<leader><"] = {
-			"<cmd> tabp <Cr>", "prev tab",
+			"<cmd> tabp <Cr>",
+			"prev tab",
 		},
 	},
 }
@@ -466,6 +467,8 @@ M.custom = {
 		["<C-s>"] = { ":Telescope Files <CR>", "Telescope Files" },
 		["<leader>g"] = { "<cmd> ChatGPT <CR>", "ChatGPT in normal mode" },
 
+		["<leader>ls"] = { "<cmd> LiveServer <CR>", "Live Server" },
+
 		-- git
 		["<leader>cm"] = { "<cmd> Telescope git_commits <CR>", "git commits" },
 		["<leader>gt"] = { "<cmd> Telescope git_status <CR>", "git status" },
@@ -479,10 +482,7 @@ M.custom = {
 		},
 		["<leader>gp"] = {
 			function()
-				require("nvterm.terminal").send(
-					"git push",
-					"float"
-				)
+				require("nvterm.terminal").send("git push", "float")
 			end,
 			"git push",
 		},
@@ -494,7 +494,7 @@ M.custom = {
 			"git commits",
 		},
 
-    ["<leader>gcp"] = { "<cmd> !~/.config/nvim/scripts.sh -g<CR>", "better git push but only for linux users" },
+		["<leader>gcp"] = { "<cmd> !~/.config/nvim/scripts.sh -g<CR>", "better git push but only for linux users" },
 
 		["<leader>gcc"] = {
 			function()
@@ -505,8 +505,6 @@ M.custom = {
 		["<leader>="] = { "<cmd> Format <CR>", "Format file" },
 
 		["<leader>em"] = { "<cmd> !brave --app='https://devhints.io/emmet' <CR><CR>", "Emmet cheatsheet" },
-
-
 	},
 
 	i = {
@@ -522,6 +520,11 @@ M.harpoon = {
 	n = {
 		["<leader>j"] = { "<cmd> lua require('harpoon.ui').nav_next()<CR>", "harpoon prev" },
 		["<leader>k"] = { "<cmd> lua require('harpoon.ui').nav_prev()<CR>", "harpoon next" },
+		["<leader>-"] = { "<cmd> lua require('harpoon.ui').nav_file(1)<CR>", "harpoon file 1" },
+		["<leader>`"] = { "<cmd> lua require('harpoon.ui').nav_file(2)<CR>", "harpoon file 2" },
+		["<leader>("] = { "<cmd> lua require('harpoon.ui').nav_file(3)<CR>", "harpoon file 3" },
+		["<leader>["] = { "<cmd> lua require('harpoon.ui').nav_file(4)<CR>", "harpoon file 4" },
+
 		["<leader>a"] = { "<cmd> lua require('harpoon.mark').add_file()<CR>", "harpoon add file" },
 		["<leader>tm"] = { "<cmd> lua require('harpoon.ui').toggle_quick_menu()<CR>", "harpoon quick menu" },
 	},
