@@ -5,9 +5,20 @@ require("lazy").setup({
 	config = function ()
 		return require("plugins.configs.rust-tools")
 	end
-	
-},
+	},
 
+	{"feline-nvim/feline.nvim",
+	config = function ()
+		return require("plugins.configs.statusline")
+	end
+
+	},
+
+	{"lewis6991/gitsigns.nvim",
+	config = function ()
+		return require("plugins.configs.gitsigns")
+	end
+	},
 
 	{
 		"williamboman/mason.nvim",
