@@ -11,9 +11,8 @@ vim.g.mapleader = " "
 -- Normal mappings
 map("i", "<C-c>", "<C-c> :w <cr>")
 map("i", "jk", "<C-c>")
-map("i", "<esc>", "<esc> :noh<cr>")
+map("i", "<esc>", "<C-c> :noh<cr>")
 map("n", "<esc>", ":noh <cr>")
-map("n", "<A-i>", ":silent !nvim &")
 
 -- Telescope mappings
 map("n", "<Leader>ff", ":Telescope find_files <cr>")
