@@ -24,6 +24,8 @@ map("n", "<Leader>e", ":NvimTreeFocus <cr>")
 
 -- Harpoon mappings
 -- map("n", "<Leader>a", function() harpoon:list():append() end)
+map("n", "<Leader>tm", ':lua require("harpoon.ui").toggle_quick_menu() <cr>')
+
 -- map("n", "<Leader>j", ":lua require('harpoon.ui').nav_file(1) <cr>")
 -- map("n", "<Leader>k", ":lua require('harpoon.ui').nav_file(2) <cr>")
 -- map("n", "<Leader>l", ":lua require('harpoon.ui').nav_file(3) <cr>")
@@ -48,10 +50,8 @@ map("n", "<C-k>", "<C-w>k")
 
 
 -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
--- map("n", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj" <cr>')
--- map("n", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk" <cr>')
--- map("v", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj" <cr>')
--- map("v", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk" <cr>')
+map("n", "j", 'gj')
+map("n", "k", 'gk')
 
 -- sessions
 map("n", "<leader>ns", '<cmd> mksession! session.vim <CR>')

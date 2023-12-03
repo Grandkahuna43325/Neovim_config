@@ -1,4 +1,5 @@
 require("lazy").setup({
+	{ "nvim-lua/plenary.nvim" },
 
 	{
 		"williamboman/mason.nvim",
@@ -77,9 +78,9 @@ require("lazy").setup({
 			"nvim-lua/plenary.nvim",
 		},
 		branch = "harpoon2",
-		-- opts = function()
-		-- 	return require "plugins.configs.harpoon"
-		-- end,
+		config = function()
+			return require("plugins.configs.harpoon")
+		end,
 	},
 
 	{
@@ -165,12 +166,11 @@ require("lazy").setup({
 		},
 	},
 
-	{ "nvim-lua/plenary.nvim" },
 	{ "MunifTanjim/nui.nvim" },
 
 	{
 		"VonHeikemen/lsp-zero.nvim",
-		branch = "v2.x",
+		branch = "v3.x",
 		config = function()
 			require("plugins.configs.lsp")
 		end,
