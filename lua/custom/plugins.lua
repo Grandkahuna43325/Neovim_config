@@ -41,6 +41,13 @@ local plugins = {
 	{
 		"neovim/nvim-lspconfig",
 		lazy = false,
+    init_options = {
+      userLanguages = {
+        eelixir = "html-eex",
+        eruby = "erb",
+        rust = "html",
+      },
+    },
 		config = function()
 			require("plugins.configs.lspconfig")
 			require("custom.configs.lspconfig")
@@ -71,6 +78,17 @@ local plugins = {
 		},
 	},
 
+  {
+    "aurum77/live-server.nvim",
+    lazy = false,
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+    config = function()
+      require("live_server.util").install()
+    end,
+  },
 }
 
 return plugins
