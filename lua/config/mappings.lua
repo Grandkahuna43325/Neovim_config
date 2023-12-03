@@ -73,5 +73,3 @@ map("n", "<Tab>", 'gt')
 
 --trouble
 map("n", "<leader>t", '<cmd> TroubleToggle <CR>')
-
-

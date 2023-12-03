@@ -1,6 +1,14 @@
 require("lazy").setup({
 	{ "nvim-lua/plenary.nvim" },
 
+	{ 'simrat39/rust-tools.nvim',
+	config = function ()
+		return require("plugins.configs.rust-tools")
+	end
+	
+},
+
+
 	{
 		"williamboman/mason.nvim",
 		build = ":MasonUpdate", -- :MasonUpdate updates registry contents
