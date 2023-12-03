@@ -67,10 +67,12 @@ map("n", "<leader>sl", '<cmd lua require("treesj").toggle({ split = { recursive 
 map("n", "<leader>ga", '<cmd> Git add * <CR>')
 map("n", "<leader>cm", '<cmd> Git commit <CR>')
 map("n", "<leader>gp", '<cmd> Git push <CR>')
+map("n", "<leader>gd", '<cmd> Gdiff <CR>')
 
 --tabs 
 map("n", "<Tab>", 'gt')
 
 --trouble
 map("n", "<leader>t", '<cmd> TroubleToggle <CR>')
+
 
