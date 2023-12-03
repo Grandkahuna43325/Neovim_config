@@ -136,15 +136,6 @@ local lsp = require("lsp-zero")
 
 lsp.preset("recommended")
 
-lsp.ensure_installed({
-	'tsserver',
-	'rust_analyzer',
-})
-
--- Fix Undefined global 'vim'
-lsp.nvim_workspace()
-
-
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local cmp_mappings = lsp.defaults.cmp_mappings({
@@ -155,12 +146,7 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 })
 
 
-lsp.setup_nvim_cmp({
-	mapping = cmp_mappings
-})
-
 lsp.set_preferences({
-	suggest_lsp_servers = false,
 	sign_icons = {
 		error = 'E',
 		warn = 'W',
@@ -168,6 +154,7 @@ lsp.set_preferences({
 		info = 'I'
 	}
 })
+
 
 lsp.on_attach(function(client, bufnr)
 	local opts = { buffer = bufnr, remap = false }
@@ -181,111 +168,112 @@ lsp.on_attach(function(client, bufnr)
 	vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
 	vim.keymap.set("n", "<leader>gr", function() vim.lsp.buf.references() end, opts)
 	vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
-	vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+	vim.keymap.set("n", "<leader>gi", function() vim.lsp.buf.implementation() end, opts)
+	vim.keymap.set("n", "<leader>fm", function() vim.lsp.buf.format({ async = true }) end, opts)
 end)
 
 local lspconfig = require('lspconfig')
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+	local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 
--- capabilities.textDocument.completion.completionItem.snippetSupport = true
+	-- capabilities.textDocument.completion.completionItem.snippetSupport = true
 
--- { "c", "cpp", "objc", "objcpp", "cuda", "proto" }
-lspconfig.clangd.setup({
-	on_attach = function(client, bufnr)
-	end,
-	capabilities = capabilities,
-	root_dir = function()
-		return vim.loop.cwd()
-	end,
-})
+	-- { "c", "cpp", "objc", "objcpp", "cuda", "proto" }
+	lspconfig.clangd.setup({
+		on_attach = function(client, bufnr)
+		end,
+		capabilities = capabilities,
+		root_dir = function()
+			return vim.loop.cwd()
+		end,
+	})
 
--- { "json", "jsonc" }
-lspconfig.jsonls.setup({
-	capabilities = capabilities,
-	on_attach = function(client, bufnr)
-	end,
-})
+	-- { "json", "jsonc" }
+	lspconfig.jsonls.setup({
+		capabilities = capabilities,
+		on_attach = function(client, bufnr)
+		end,
+	})
 
--- { "python" }
-lspconfig.pyright.setup({
-	root_dir = function()
-		return vim.loop.cwd()
-	end,
-	capabilities = capabilities,
-})
+	-- { "python" }
+	lspconfig.pyright.setup({
+		root_dir = function()
+			return vim.loop.cwd()
+		end,
+		capabilities = capabilities,
+	})
 
--- { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "eruby" }
-lspconfig.emmet_ls.setup({
-	root_dir = function()
-		return vim.loop.cwd()
-	end,
-	capabilities = capabilities,
-	on_attach = function(client, bufnr)
-	end,
-})
+	-- { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "eruby" }
+	lspconfig.emmet_ls.setup({
+		root_dir = function()
+			return vim.loop.cwd()
+		end,
+		capabilities = capabilities,
+		on_attach = function(client, bufnr)
+		end,
+	})
 
--- {"sh"}
-lspconfig.bashls.setup({
-	root_dir = function()
-		return vim.loop.cwd()
-	end,
-	capabilities = capabilities,
-	on_attach = function(client, bufnr)
-	end,
-})
+	-- {"sh"}
+	lspconfig.bashls.setup({
+		root_dir = function()
+			return vim.loop.cwd()
+		end,
+		capabilities = capabilities,
+		on_attach = function(client, bufnr)
+		end,
+	})
 
--- {"dockerfile"}
-lspconfig.dockerls.setup({
-	root_dir = function()
-		return vim.loop.cwd()
-	end,
-	capabilities = capabilities,
-	on_attach = function(client, bufnr)
-	end,
-})
+	-- {"dockerfile"}
+	lspconfig.dockerls.setup({
+		root_dir = function()
+			return vim.loop.cwd()
+		end,
+		capabilities = capabilities,
+		on_attach = function(client, bufnr)
+		end,
+	})
 
--- {"markdown"}
-lspconfig.grammarly.setup({
-	root_dir = function()
-		return vim.loop.cwd()
-	end,
-	capabilities = capabilities,
-	on_attach = function(client, bufnr)
-	end,
-})
+	-- {"markdown"}
+	lspconfig.grammarly.setup({
+		root_dir = function()
+			return vim.loop.cwd()
+		end,
+		capabilities = capabilities,
+		on_attach = function(client, bufnr)
+		end,
+	})
 
--- { "javascript"}
--- lspconfig.quick_lint_js.setup({
--- 	root_dir = function()
--- 		return vim.loop.cwd()
--- 	end,
--- 	capabilities = capabilities,
---   on_attach = function(client, bufnr) end
--- })
-
-
+	-- { "javascript"}
+	-- lspconfig.quick_lint_js.setup({
+	-- 	root_dir = function()
+	-- 		return vim.loop.cwd()
+	-- 	end,
+	-- 	capabilities = capabilities,
+	--   on_attach = function(client, bufnr) end
+	-- })
 
 
-lspconfig.tsserver.setup({
-	root_dir = function()
-		return vim.loop.cwd()
-	end,
-	capabilities = capabilities,
-	on_attach = function(client, bufnr)
-	end,
-})
 
 
-lspconfig.rust_analyzer.setup({
-	root_dir = function()
-		return vim.loop.cwd()
-	end,
-	capabilities = capabilities,
-	on_attach = function(client, bufnr)
-	end,
-	settings = {
-		["rust-analyzer"] = {
+	lspconfig.tsserver.setup({
+		root_dir = function()
+			return vim.loop.cwd()
+		end,
+		capabilities = capabilities,
+		on_attach = function(client, bufnr)
+		end,
+	})
+
+
+	lspconfig.rust_analyzer.setup({
+		root_dir = function()
+			return vim.loop.cwd()
+		end,
+		capabilities = capabilities,
+		on_attach = function(client, bufnr)
+		end,
+		settings = {
+			["rust-analyzer"] = {
 			imports = {
 				granularity = {
 					group = "module",
@@ -327,6 +315,7 @@ lsp.setup()
 require('luasnip.loaders.from_vscode').lazy_load()
 require("luasnip/loaders/from_vscode").load({ paths = { "~/.local/share/nvim/site/pack/packer/start/friendly-snippets" } })
 
+
 cmp.setup({
   sources = {
     {name = 'nvim_lsp'},
@@ -348,3 +337,6 @@ cmp.setup({
 vim.diagnostic.config({
 	virtual_text = true
 })
+
+
+

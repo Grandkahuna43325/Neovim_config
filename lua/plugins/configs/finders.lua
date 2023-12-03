@@ -2,22 +2,22 @@ local finders = {}
 
 -- Dropdown list theme using a builtin theme definitions :
 local center_list = require"telescope.themes".get_dropdown({
-  winblend = 10,
-  width = 0.5,
-  prompt = " ",
-  results_height = 15,
-  previewer = false,
+	winblend = 10,
+	width = 0.5,
+	prompt = " ",
+	results_height = 15,
+	previewer = false,
 })
 
 -- Settings for with preview option
 local with_preview = {
-  winblend = 10,
-  show_line = false,
-  results_title = false,
-  preview_title = false,
-  layout_config = {
-    preview_width = 0.5,
-  },
+	winblend = 10,
+	show_line = false,
+	results_title = false,
+	preview_title = false,
+	layout_config = {
+		preview_width = 0.5,
+	},
 }
 
 -- Find in neovim config with center theme
