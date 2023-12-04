@@ -20,17 +20,6 @@ require("lazy").setup({
 	end
 	},
 
-	{
-		"williamboman/mason.nvim",
-		build = ":MasonUpdate", -- :MasonUpdate updates registry contents
-		cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
-		opts = function()
-			return require("plugins.configs.mason")
-		end,
-		config = function()
-			require("plugins.configs.mason")
-		end,
-	},
 
 	{
 		"folke/trouble.nvim",
@@ -259,4 +248,17 @@ require("lazy").setup({
 			},
 		},
 	},
+
+	{
+		"williamboman/mason.nvim",
+		build = ":MasonUpdate", -- :MasonUpdate updates registry contents
+		cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
+		opts = function()
+			return require("plugins.configs.mason")
+		end,
+		config = function()
+			require("plugins.configs.mason")
+		end,
+	},
+
 })

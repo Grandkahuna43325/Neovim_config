@@ -175,6 +175,7 @@ end)
 local lspconfig = require('lspconfig')
 	local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
+lsp.setup()
 
 	-- capabilities.textDocument.completion.completionItem.snippetSupport = true
 
@@ -308,7 +309,6 @@ local lspconfig = require('lspconfig')
 -- })
 
 
-lsp.setup()
 
 -- local cmp_action = require('lsp-zero').cmp_action()
 
