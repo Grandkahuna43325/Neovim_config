@@ -145,6 +145,7 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 	["<C-Space>"] = cmp.mapping.complete(),
 })
 
+lsp.setup()
 
 lsp.set_preferences({
 	sign_icons = {
@@ -175,7 +176,6 @@ end)
 local lspconfig = require('lspconfig')
 	local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-lsp.setup()
 
 	-- capabilities.textDocument.completion.completionItem.snippetSupport = true
 

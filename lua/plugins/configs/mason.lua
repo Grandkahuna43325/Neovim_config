@@ -20,7 +20,7 @@ require("mason-lspconfig").setup({
 				on_attach = function(client, bufnr) end,
 				settings = {
 					["rust-analyzer"] = {
-						checkOnSave = {
+						check = {
 							command = "clippy",
 						},
 						imports = {
