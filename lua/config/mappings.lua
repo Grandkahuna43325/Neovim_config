@@ -59,7 +59,7 @@ map("n", "<leader>rs", '<cmd> source session.vim <CR>')
 
 -- formatter
 map("n", "<leader>=", '<cmd> Format <CR>')
-map("n", "<leader>sl", '<cmd lua require("treesj").toggle({ split = { recursive = true } }) <CR>')
+map("n", "<leader>sl", '<cmd> lua require("treesj").toggle() <CR>')
 
 
 --github
