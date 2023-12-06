@@ -1,4 +1,5 @@
 local lsp_zero = require("lsp-zero")
+lsp_zero.extend_lspconfig()
 local cmp = require("cmp")
 local cmp_format = lsp_zero.cmp_format()
 
