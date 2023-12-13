@@ -1,283 +1,282 @@
 require("lazy").setup({
-	{ "nvim-lua/plenary.nvim" },
+    { "nvim-lua/plenary.nvim" },
 
-	{"alexghergh/nvim-tmux-navigation",
-	config = function()
+    {
+        "alexghergh/nvim-tmux-navigation",
+        config = function()
+            local nvim_tmux_nav = require("nvim-tmux-navigation")
 
-		local nvim_tmux_nav = require('nvim-tmux-navigation')
+            nvim_tmux_nav.setup({
+                disable_when_zoomed = true, -- defaults to false
+            })
 
-		nvim_tmux_nav.setup {
-			disable_when_zoomed = true -- defaults to false
-		}
+            vim.keymap.set("n", "<C-h>", nvim_tmux_nav.NvimTmuxNavigateLeft)
+            vim.keymap.set("n", "<C-j>", nvim_tmux_nav.NvimTmuxNavigateDown)
+            vim.keymap.set("n", "<C-k>", nvim_tmux_nav.NvimTmuxNavigateUp)
+            vim.keymap.set("n", "<C-l>", nvim_tmux_nav.NvimTmuxNavigateRight)
+            vim.keymap.set("n", "<C-\\>", nvim_tmux_nav.NvimTmuxNavigateLastActive)
+            vim.keymap.set("n", "<C-Space>", nvim_tmux_nav.NvimTmuxNavigateNext)
+        end,
+    },
 
-		vim.keymap.set('n', "<C-h>", nvim_tmux_nav.NvimTmuxNavigateLeft)
-		vim.keymap.set('n', "<C-j>", nvim_tmux_nav.NvimTmuxNavigateDown)
-		vim.keymap.set('n', "<C-k>", nvim_tmux_nav.NvimTmuxNavigateUp)
-		vim.keymap.set('n', "<C-l>", nvim_tmux_nav.NvimTmuxNavigateRight)
-		vim.keymap.set('n', "<C-\\>", nvim_tmux_nav.NvimTmuxNavigateLastActive)
-		vim.keymap.set('n', "<C-Space>", nvim_tmux_nav.NvimTmuxNavigateNext)
+    {
+        "simrat39/rust-tools.nvim",
+        config = function()
+            return require("plugins.configs.rust-tools")
+        end,
+    },
 
-	end
-	},
+    {
+        "feline-nvim/feline.nvim",
+        config = function()
+            return require("plugins.configs.statusline")
+        end,
+    },
 
-	{ 'simrat39/rust-tools.nvim',
-	config = function ()
-		return require("plugins.configs.rust-tools")
-	end
-	},
+    {
+        "lewis6991/gitsigns.nvim",
+        config = function()
+            return require("plugins.configs.gitsigns")
+        end,
+    },
 
-	{"feline-nvim/feline.nvim",
-	config = function ()
-		return require("plugins.configs.statusline")
-	end
+    {
+        "folke/trouble.nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        opts = function()
+            return require("plugins.configs.trouble")
+        end,
+    },
 
-	},
+    {
+        "mhartington/formatter.nvim",
+        lazy = false,
+        config = function()
+            require("plugins.configs.formatter")
+        end,
+    },
 
-	{"lewis6991/gitsigns.nvim",
-	config = function ()
-		return require("plugins.configs.gitsigns")
-	end
-	},
+    {
+        "Wansmer/treesj",
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
+        config = function()
+            require("treesj")
+        end,
+    },
 
+    {
+        "tpope/vim-fugitive",
+    },
 
-	{
-		"folke/trouble.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		opts = function ()
-			return require("plugins.configs.trouble")
-		end,
-	},
+    {
+        "folke/which-key.nvim",
+        event = "VeryLazy",
+        init = function()
+            vim.o.timeout = true
+            vim.o.timeoutlen = 300
+        end,
+        opts = function()
+            return require("plugins.configs.which-key")
+        end,
+    },
 
-	{
-		"mhartington/formatter.nvim",
-		lazy = false,
-		config = function()
-			require("plugins.configs.formatter")
-		end,
-	},
+    {
+        "nvim-telescope/telescope.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        cmd = "Telescope",
+        opts = function()
+            return require("plugins.configs.telescope")
+        end,
+    },
 
-	{
-		"Wansmer/treesj",
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
-		config = function()
-			require("treesj")
-		end,
-	},
+    {
 
-	{
-		"tpope/vim-fugitive",
-	},
+        "nvim-tree/nvim-tree.lua",
+        cmd = { "NvimTreeToggle", "NvimTreeFocus" },
+        opts = function()
+            return require("plugins.configs.nvimtree")
+        end,
+    },
 
-	{
-		"folke/which-key.nvim",
-		event = "VeryLazy",
-		init = function()
-			vim.o.timeout = true
-			vim.o.timeoutlen = 300
-		end,
-		opts = function()
-			return require("plugins.configs.which-key")
-		end,
-	},
+    {
+        "ThePrimeagen/harpoon",
+        lazy = false,
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+        branch = "harpoon2",
+        config = function()
+            return require("plugins.configs.harpoon")
+        end,
+    },
 
-	{
-		"nvim-telescope/telescope.nvim",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		cmd = "Telescope",
-		opts = function()
-			return require("plugins.configs.telescope")
-		end,
-	},
+    {
+        "windwp/nvim-autopairs",
+        opts = {
+            fast_wrap = {},
+            disable_filetype = { "TelescopePrompt", "vim" },
+        },
+        -- requires = {"hrsh7th/nvim-cmp"},
+        config = function(_, opts)
+            require("nvim-autopairs").setup(opts)
 
-	{
+            -- setup cmp for autopairs
+            -- local cmp_autopairs = require "nvim-autopairs.completion.cmp"
+            -- require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
+        end,
+    },
 
-		"nvim-tree/nvim-tree.lua",
-		cmd = { "NvimTreeToggle", "NvimTreeFocus" },
-		opts = function()
-			return require("plugins.configs.nvimtree")
-		end,
-	},
+    {
+        "folke/tokyonight.nvim",
+        lazy = false, -- make sure we load this during startup if it is your main colorscheme
+        priority = 1000, -- make sure to load this before all the other start plugins
+        -- config = function()
+        -- 	-- load the colorscheme here
+        -- 	vim.cmd([[colorscheme tokyonight-night]])
+        -- end,
+    },
 
-	{
-		"ThePrimeagen/harpoon",
-		lazy = false,
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
-		branch = "harpoon2",
-		config = function()
-			return require("plugins.configs.harpoon")
-		end,
-	},
+    {
+        "bluz71/vim-moonfly-colors",
+        name = "moonfly",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            -- load the colorscheme here
+            vim.cmd([[colorscheme moonfly]])
+        end,
+    },
 
-	{
-		"windwp/nvim-autopairs",
-		opts = {
-			fast_wrap = {},
-			disable_filetype = { "TelescopePrompt", "vim" },
-		},
-		-- requires = {"hrsh7th/nvim-cmp"},
-		config = function(_, opts)
-			require("nvim-autopairs").setup(opts)
+    {
+        "windwp/nvim-autopairs",
+        opts = {
+            fast_wrap = {},
+            disable_filetype = { "TelescopePrompt", "vim" },
+        },
+    },
 
-			-- setup cmp for autopairs
-			-- local cmp_autopairs = require "nvim-autopairs.completion.cmp"
-			-- require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
-		end,
-	},
+    {
+        "kylechui/nvim-surround",
+        version = "*", -- Use for stability; omit to use `main` branch for the latest features
+        event = "VeryLazy",
+        config = function()
+            require("nvim-surround").setup({
+                -- Configuration here, or leave empty to use defaults
+            })
+        end,
+    },
 
-	{
-		"folke/tokyonight.nvim",
-		lazy = false, -- make sure we load this during startup if it is your main colorscheme
-		priority = 1000, -- make sure to load this before all the other start plugins
-		-- config = function()
-		-- 	-- load the colorscheme here
-		-- 	vim.cmd([[colorscheme tokyonight-night]])
-		-- end,
-	},
+    {
+        "nvim-treesitter/nvim-treesitter",
+        opts = function()
+            require("plugins.configs.treesitter")
+        end,
+    },
 
-	{
-		"bluz71/vim-moonfly-colors",
-		name = "moonfly",
-		lazy = false,
-		priority = 1000,
-		config = function()
-			-- load the colorscheme here
-			vim.cmd([[colorscheme moonfly]])
-		end,
-	},
+    {
+        "numToStr/Comment.nvim",
+        config = function()
+            require("Comment").setup()
+        end,
+    },
 
-	{
-		"windwp/nvim-autopairs",
-		opts = {
-			fast_wrap = {},
-			disable_filetype = { "TelescopePrompt", "vim" },
-		},
-	},
+    {
+        "jackMort/ChatGPT.nvim",
+        event = "VeryLazy",
+        config = function()
+            require("chatgpt").setup()
+        end,
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+            "nvim-lua/plenary.nvim",
+            "nvim-telescope/telescope.nvim",
+        },
+    },
 
-	{
-		"kylechui/nvim-surround",
-		version = "*", -- Use for stability; omit to use `main` branch for the latest features
-		event = "VeryLazy",
-		config = function()
-			require("nvim-surround").setup({
-				-- Configuration here, or leave empty to use defaults
-			})
-		end,
-	},
+    { "MunifTanjim/nui.nvim" },
 
-	{
-		"nvim-treesitter/nvim-treesitter",
-		opts = function()
-			require("plugins.configs.treesitter")
-		end,
-	},
+    {
+        "VonHeikemen/lsp-zero.nvim",
+        branch = "v3.x",
+        config = function()
+            require("plugins.configs.lsp")
+        end,
+        dependencies = {
+            -- LSP Support
+            { "neovim/nvim-lspconfig" }, -- Required
+            { -- Optional
+                "williamboman/mason.nvim",
+                build = function()
+                    pcall(vim.cmd, "MasonUpdate")
+                end,
+            },
+            { "williamboman/mason-lspconfig.nvim" }, -- Optional
 
-	{
-		"numToStr/Comment.nvim",
-		config = function()
-			require("Comment").setup()
-		end,
-	},
+            -- Autocompletion
+            { "hrsh7th/nvim-cmp" }, -- Required
+            { "hrsh7th/cmp-nvim-lsp" }, -- Required
+            { "L3MON4D3/LuaSnip" }, -- Required
+            { "rafamadriz/friendly-snippets" },
 
-	{
-		"jackMort/ChatGPT.nvim",
-		event = "VeryLazy",
-		config = function()
-			require("chatgpt").setup()
-		end,
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope.nvim",
-		},
-	},
+            {
+                "hrsh7th/nvim-cmp",
+                event = "InsertEnter",
+                dependencies = {
+                    {
+                        -- snippet plugin
+                        "L3MON4D3/LuaSnip",
+                        dependencies = "rafamadriz/friendly-snippets",
+                        opts = { history = true, updateevents = "TextChanged,TextChangedI" },
+                        config = function(_, opts)
+                            require("plugins.configs.cmp").luasnip(opts)
+                        end,
+                    },
 
-	{ "MunifTanjim/nui.nvim" },
+                    -- autopairing of (){}[] etc
+                    {
+                        "windwp/nvim-autopairs",
+                        opts = {
+                            fast_wrap = {},
+                            disable_filetype = { "TelescopePrompt", "vim" },
+                        },
+                        config = function(_, opts)
+                            require("nvim-autopairs").setup(opts)
 
-	{
-		"VonHeikemen/lsp-zero.nvim",
-		branch = "v3.x",
-		config = function()
-			require("plugins.configs.lsp")
-		end,
-		dependencies = {
-			-- LSP Support
-			{ "neovim/nvim-lspconfig" }, -- Required
-			{ -- Optional
-				"williamboman/mason.nvim",
-				build = function()
-					pcall(vim.cmd, "MasonUpdate")
-				end,
-			},
-			{ "williamboman/mason-lspconfig.nvim" }, -- Optional
+                            -- setup cmp for autopairs
+                            local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+                            require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
+                        end,
+                    },
 
-			-- Autocompletion
-			{'hrsh7th/nvim-cmp'},     -- Required
-			{'hrsh7th/cmp-nvim-lsp'}, -- Required
-			{'L3MON4D3/LuaSnip'},     -- Required
-			{'rafamadriz/friendly-snippets'},
+                    -- cmp sources plugins
+                    {
+                        "saadparwaiz1/cmp_luasnip",
+                        "hrsh7th/cmp-nvim-lua",
+                        "hrsh7th/cmp-nvim-lsp",
+                        "hrsh7th/cmp-buffer",
+                        "hrsh7th/cmp-path",
+                    },
+                },
 
-			{
-				"hrsh7th/nvim-cmp",
-				event = "InsertEnter",
-				dependencies = {
-					{
-						-- snippet plugin
-						"L3MON4D3/LuaSnip",
-						dependencies = "rafamadriz/friendly-snippets",
-						opts = { history = true, updateevents = "TextChanged,TextChangedI" },
-						config = function(_, opts)
-							require("plugins.configs.cmp").luasnip(opts)
-						end,
-					},
+                opts = function()
+                    return require("plugins.configs.cmp")
+                end,
+                config = function(_, opts)
+                    require("cmp").setup(opts)
+                end,
+            },
+        },
+    },
 
-					-- autopairing of (){}[] etc
-					{
-						"windwp/nvim-autopairs",
-						opts = {
-							fast_wrap = {},
-							disable_filetype = { "TelescopePrompt", "vim" },
-						},
-						config = function(_, opts)
-							require("nvim-autopairs").setup(opts)
-
-							-- setup cmp for autopairs
-							local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-							require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
-						end,
-					},
-
-					-- cmp sources plugins
-					{
-						"saadparwaiz1/cmp_luasnip",
-						"hrsh7th/cmp-nvim-lua",
-						"hrsh7th/cmp-nvim-lsp",
-						"hrsh7th/cmp-buffer",
-						"hrsh7th/cmp-path",
-					},
-				},
-
-				opts = function()
-					return require("plugins.configs.cmp")
-				end,
-				config = function(_, opts)
-					require("cmp").setup(opts)
-				end,
-			},
-		},
-	},
-
-	{
-		"williamboman/mason.nvim",
-		build = ":MasonUpdate", -- :MasonUpdate updates registry contents
-		cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
-		opts = function()
-			return require("plugins.configs.mason")
-		end,
-		config = function()
-			require("plugins.configs.mason")
-		end,
-	},
-
+    {
+        "williamboman/mason.nvim",
+        build = ":MasonUpdate", -- :MasonUpdate updates registry contents
+        cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
+        opts = function()
+            return require("plugins.configs.mason")
+        end,
+        config = function()
+            require("plugins.configs.mason")
+        end,
+    },
 })
