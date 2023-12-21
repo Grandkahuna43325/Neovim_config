@@ -32,7 +32,6 @@ map("n", "<Leader>tm", ':lua require("harpoon.ui").toggle_quick_menu() <cr>')
 -- map("n", "<Leader>;", ":lua require('harpoon.ui').nav_file(4) <cr>")
 -- map("n", "<Leader>m", ":Telescope harpoon marks <cr>")
 
-
 -- Comment
 map("n", "<Leader>/", ":lua require('Comment.api').toggle.linewise.current() <cr>")
 map("v", "<Leader>/", ":lua require('Comment.api').toggle.linewise(vim.fn.visualmode()) <cr>")
@@ -47,29 +46,70 @@ map("n", "<C-l>", "<C-w>l")
 map("n", "<C-j>", "<C-w>j")
 map("n", "<C-k>", "<C-w>k")
 
-
-
 -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
-map("n", "j", 'gj')
-map("n", "k", 'gk')
+map("n", "j", "gj")
+map("n", "k", "gk")
 
 -- sessions
-map("n", "<leader>ns", '<cmd> mksession! session.vim <CR>')
-map("n", "<leader>rs", '<cmd> source session.vim <CR>')
+map("n", "<leader>ns", "<cmd> mksession! session.vim <CR>")
+map("n", "<leader>rs", "<cmd> source session.vim <CR>")
 
 -- formatter
-map("n", "<leader>=", '<cmd> Format <CR>')
+map("n", "<leader>=", "<cmd> Format <CR>")
 map("n", "<leader>sl", '<cmd> lua require("treesj").toggle() <CR>')
-
+vim.api.nvim_set_keymap(
+    "n",
+    "<leader>f=",
+    "<cmd> execute '%s/<>/<diamond_tag>/g' | execute '%s#</>#</diamond_tag>#g' <CR> | vi{:! prettier --parser html --stdin-filepath<CR>vi{>:%s/<diamond_tag>/<>/g | %s#</diamond_tag>#</>#g <CR>", { noremap = true, silent = true })
 
 --github
-map("n", "<leader>ga", '<cmd> Git add * <CR>')
-map("n", "<leader>cm", '<cmd> Git commit <CR>')
-map("n", "<leader>gp", '<cmd> Git push <CR>')
-map("n", "<leader>gd", '<cmd> Gdiff <CR>')
+map("n", "<leader>ga", "<cmd> Git add * <CR>")
+map("n", "<leader>cm", "<cmd> Git commit <CR>")
+map("n", "<leader>gp", "<cmd> Git push <CR>")
+map("n", "<leader>gd", "<cmd> Gdiff <CR>")
 
---tabs 
-map("n", "<Tab>", 'gt')
+--tabs
+map("n", "<Tab>", "gt")
 
 --trouble
-map("n", "<leader>t", '<cmd> TroubleToggle <CR>')
+map("n", "<leader>t", "<cmd> TroubleToggle <CR>")
+
+
+
+local opts = { buffer = bufnr, remap = false }
+
+vim.keymap.set("n", "gd", function()
+    vim.lsp.buf.definition()
+end, opts)
+vim.keymap.set("n", "K", function()
+    vim.lsp.buf.hover()
+end, opts)
+-- vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
+vim.keymap.set("n", "<leader>d", function()
+    vim.diagnostic.open_float()
+end, opts)
+vim.keymap.set("n", "[d", function()
+    vim.diagnostic.goto_next()
+end, opts)
+vim.keymap.set("n", "]d", function()
+    vim.diagnostic.goto_prev()
+end, opts)
+vim.keymap.set("n", "<leader>ca", function()
+    vim.lsp.buf.code_action()
+end, opts)
+vim.keymap.set("n", "gr", function()
+    vim.lsp.buf.references()
+end, opts)
+vim.keymap.set("n", "<leader>rn", function()
+    vim.lsp.buf.rename()
+end, opts)
+vim.keymap.set("n", "<leader>gi", function()
+    vim.lsp.buf.implementation()
+end, opts)
+vim.keymap.set("n", "<leader>fm", function()
+    vim.lsp.buf.format({ async = true })
+end, opts)
+
+
+--hop 
+map("n", "<leader>h", "<cmd> HopWord <CR>")

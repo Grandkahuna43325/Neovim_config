@@ -1,4 +1,30 @@
-require("lazy").setup({
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
+end
+vim.opt.rtp:prepend(lazypath)
+
+local status_ok, lazy = pcall(require, "lazy")
+if not status_ok then
+    return
+end
+
+lazy.setup({
+    { "smoka7/hop.nvim",
+    	config = function ()
+		require'hop'.setup {}
+		require("plugins.configs.hop")
+    	end,
+	opts = {}
+    },
+
     { "nvim-lua/plenary.nvim" },
 
     {
@@ -196,77 +222,122 @@ require("lazy").setup({
     { "MunifTanjim/nui.nvim" },
 
     {
-        "VonHeikemen/lsp-zero.nvim",
-        branch = "v3.x",
-        config = function()
-            require("plugins.configs.lsp")
-        end,
-        dependencies = {
-            -- LSP Support
-            { "neovim/nvim-lspconfig" }, -- Required
-            { -- Optional
-                "williamboman/mason.nvim",
-                build = function()
-                    pcall(vim.cmd, "MasonUpdate")
-                end,
-            },
-            { "williamboman/mason-lspconfig.nvim" }, -- Optional
-
-            -- Autocompletion
-            { "hrsh7th/nvim-cmp" }, -- Required
-            { "hrsh7th/cmp-nvim-lsp" }, -- Required
-            { "L3MON4D3/LuaSnip" }, -- Required
-            { "rafamadriz/friendly-snippets" },
-
-            {
-                "hrsh7th/nvim-cmp",
-                event = "InsertEnter",
-                dependencies = {
-                    {
-                        -- snippet plugin
-                        "L3MON4D3/LuaSnip",
-                        dependencies = "rafamadriz/friendly-snippets",
-                        opts = { history = true, updateevents = "TextChanged,TextChangedI" },
-                        config = function(_, opts)
-                            require("plugins.configs.cmp").luasnip(opts)
-                        end,
-                    },
-
-                    -- autopairing of (){}[] etc
-                    {
-                        "windwp/nvim-autopairs",
-                        opts = {
-                            fast_wrap = {},
-                            disable_filetype = { "TelescopePrompt", "vim" },
-                        },
-                        config = function(_, opts)
-                            require("nvim-autopairs").setup(opts)
-
-                            -- setup cmp for autopairs
-                            local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-                            require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
-                        end,
-                    },
-
-                    -- cmp sources plugins
-                    {
-                        "saadparwaiz1/cmp_luasnip",
-                        "hrsh7th/cmp-nvim-lua",
-                        "hrsh7th/cmp-nvim-lsp",
-                        "hrsh7th/cmp-buffer",
-                        "hrsh7th/cmp-path",
-                    },
-                },
-
-                opts = function()
-                    return require("plugins.configs.cmp")
-                end,
-                config = function(_, opts)
-                    require("cmp").setup(opts)
-                end,
+        -- LSP Configuration & Plugins
+        "neovim/nvim-lspconfig",
+        init_options = {
+            userLanguages = {
+                eelixir = "html-eex",
+                eruby = "erb",
+                rust = "html",
             },
         },
+        dependencies = {
+            -- Automatically install LSPs to stdpath for neovim
+            { "williamboman/mason.nvim", config = true },
+            "williamboman/mason-lspconfig.nvim",
+
+            -- Useful status updates for LSP
+            -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
+            { "j-hui/fidget.nvim", tag = "legacy", opts = {} },
+
+            -- Additional lua configuration, makes nvim stuff amazing!
+            "folke/neodev.nvim",
+        },
     },
+
+    {
+        -- Autocompletion
+        "hrsh7th/nvim-cmp",
+        dependencies = {
+            -- Snippet Engine & its associated nvim-cmp source
+            "L3MON4D3/LuaSnip",
+            "saadparwaiz1/cmp_luasnip",
+            "hrsh7th/cmp-path",
+
+            "hrsh7th/cmp-buffer",
+            -- Adds LSP completion capabilities
+            "hrsh7th/cmp-nvim-lsp",
+
+            -- Adds a number of user-friendly snippets
+            "rafamadriz/friendly-snippets",
+        },
+        config = function()
+            require("plugins.configs.cmp")
+        end,
+    },
+
+    -- {
+    --     "VonHeikemen/lsp-zero.nvim",
+    --     branch = "v3.x",
+    --     config = function()
+    --         require("plugins.configs.lsp")
+    --     end,
+    --     dependencies = {
+    --         -- LSP Support
+    --         { "neovim/nvim-lspconfig" }, -- Required
+    --         { -- Optional
+    --             "williamboman/mason.nvim",
+    --             build = function()
+    --                 pcall(vim.cmd, "MasonUpdate")
+    --             end,
+    --         },
+    --         { "williamboman/mason-lspconfig.nvim" }, -- Optional
+    --
+    --         -- Autocompletion
+    --         { "hrsh7th/nvim-cmp" }, -- Required
+    --         { "hrsh7th/cmp-nvim-lsp" }, -- Required
+    --         { "L3MON4D3/LuaSnip" }, -- Required
+    --         { "rafamadriz/friendly-snippets" },
+    --
+    --         {
+    --             "hrsh7th/nvim-cmp",
+    --             event = "InsertEnter",
+    --             dependencies = {
+    --                 {
+    --                     -- snippet plugin
+    --                     "L3MON4D3/LuaSnip",
+    --                     dependencies = "rafamadriz/friendly-snippets",
+    --                     opts = { history = true, updateevents = "TextChanged,TextChangedI" },
+    --                     config = function(_, opts)
+    --                         require("plugins.configs.cmp").luasnip(opts)
+    --                     end,
+    --                 },
+    --
+    --                 -- autopairing of (){}[] etc
+    --                 {
+    --                     "windwp/nvim-autopairs",
+    --                     opts = {
+    --                         fast_wrap = {},
+    --                         disable_filetype = { "TelescopePrompt", "vim" },
+    --                     },
+    --                     config = function(_, opts)
+    --                         require("nvim-autopairs").setup(opts)
+    --
+    --                         -- setup cmp for autopairs
+    --                         local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+    --                         require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
+    --                     end,
+    --                 },
+    --
+    --                 -- cmp sources plugins
+    --                 {
+    --                     "saadparwaiz1/cmp_luasnip",
+    --                     "hrsh7th/cmp-nvim-lua",
+    --                     "hrsh7th/cmp-nvim-lsp",
+    --                     "hrsh7th/cmp-buffer",
+    --                     "hrsh7th/cmp-path",
+    --                 },
+    --             },
+    --
+    --             opts = function()
+    --                 return require("plugins.configs.cmp")
+    --             end,
+    --             config = function(_, opts)
+    --                 require("cmp").setup(opts)
+    --             end,
+    --         },
+    --     },
+    -- },
 
     {
         "williamboman/mason.nvim",
