@@ -17,12 +17,13 @@ if not status_ok then
 end
 
 lazy.setup({
-    { "smoka7/hop.nvim",
-    	config = function ()
-		require'hop'.setup {}
-		require("plugins.configs.hop")
-    	end,
-	opts = {}
+    {
+        "smoka7/hop.nvim",
+        config = function()
+            require("hop").setup({})
+            require("plugins.configs.hop")
+        end,
+        opts = {},
     },
 
     { "nvim-lua/plenary.nvim" },
@@ -350,4 +351,11 @@ lazy.setup({
             require("plugins.configs.mason")
         end,
     },
+    {
+        "mfussenegger/nvim-dap",
+        config = function()
+            require("plugins.configs.dap")
+        end,
+    },
+    { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } },
 })
