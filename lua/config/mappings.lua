@@ -7,6 +7,7 @@ local function map(mode, lhs, rhs, opts)
 end
 
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 -- Normal mappings
 map("i", "<C-c>", "<C-c> :w <cr>")
@@ -74,6 +75,8 @@ map("n", "<Tab>", "gt")
 --trouble
 map("n", "<leader>t", "<cmd> TroubleToggle <CR>")
 
+--hop 
+map("n", "<leader>h", "<cmd> HopWord <CR>")
 
 
 local opts = { buffer = bufnr, remap = false }
@@ -110,6 +113,3 @@ vim.keymap.set("n", "<leader>fm", function()
     vim.lsp.buf.format({ async = true })
 end, opts)
 
-
---hop 
-map("n", "<leader>h", "<cmd> HopWord <CR>")
