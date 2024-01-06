@@ -58,10 +58,6 @@ map("n", "<leader>rs", "<cmd> source session.vim <CR>")
 -- formatter
 map("n", "<leader>=", "<cmd> Format <CR>")
 map("n", "<leader>sl", '<cmd> lua require("treesj").toggle() <CR>')
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>f=",
-    "<cmd> execute '%s/<>/<diamond_tag>/g' | execute '%s#</>#</diamond_tag>#g' <CR> | vi{:! prettier --parser html --stdin-filepath<CR>vi{>:%s/<diamond_tag>/<>/g | %s#</diamond_tag>#</>#g <CR>", { noremap = true, silent = true })
 
 --github
 map("n", "<leader>ga", "<cmd> Git add * <CR>")
@@ -75,11 +71,19 @@ map("n", "<Tab>", "gt")
 --trouble
 map("n", "<leader>t", "<cmd> TroubleToggle <CR>")
 
---hop 
+--hop
 map("n", "<leader>h", "<cmd> HopWord <CR>")
 
---custom shortcuts
-map("n", "<leader>gcc", "<cmd> !g++ main.cpp -o main && ./main <CR>")
+-- worktree
+map("n", "<leader>gt", "<cmd> lua require('telescope').extensions.git_worktree.git_worktrees() <CR>")
+-- <Enter> - switches to that worktree
+-- <c-d> - deletes that worktree
+-- <c-f> - toggles forcing of the next deletion
+map("n", "<leader>gcw", "<cmd> lua require('telescope').extensions.git_worktree.create_git_worktree() <CR>")
+
+--cmdline 
+map("n", ":", "<cmd>FineCmdline<CR>")
+
 
 -- local opts = { buffer = bufnr, remap = false }
 --

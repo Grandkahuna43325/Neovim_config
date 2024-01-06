@@ -53,10 +53,32 @@ lazy.setup({
         end,
     },
 
+    -- {
+    --     "feline-nvim/feline.nvim",
+    --     config = function()
+    --         return require("plugins.configs.statusline")
+    --     end,
+    -- },
+    --
     {
-        "feline-nvim/feline.nvim",
+        "arsham/arshamiser.nvim",
+        dependencies = {
+            "arsham/arshlib.nvim",
+            "famiu/feline.nvim",
+            "rebelot/heirline.nvim",
+            "kyazdani42/nvim-web-devicons",
+        },
         config = function()
-            return require("plugins.configs.statusline")
+            -- ignore any parts you don't want to use
+            vim.cmd.colorscheme("moonfly")
+            require("arshamiser.feliniser")
+            -- or:
+            -- require("arshamiser.heirliniser")
+
+            _G.custom_foldtext = require("arshamiser.folding").foldtext
+            vim.opt.foldtext = "v:lua.custom_foldtext()"
+            -- if you want to draw a tabline:
+            vim.api.nvim_set_option("tabline", [[%{%v:lua.require("arshamiser.tabline").draw()%}]])
         end,
     },
 
@@ -359,10 +381,11 @@ lazy.setup({
         end,
     },
     { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } },
-    {"rebelot/kanagawa.nvim"},
+    "rebelot/kanagawa.nvim",
     {
         "nvim-neorg/neorg",
         build = ":Neorg sync-parsers",
+        tag = "*",
         dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
             require("neorg").setup({
@@ -384,5 +407,22 @@ lazy.setup({
     {
         "Exafunction/codeium.vim",
         event = "BufEnter",
+    },
+    {
+        "ThePrimeagen/git-worktree.nvim",
+        requires = {
+            "nvim-telescope/telescope.nvim",
+            "nvim-lua/plenary.nvim",
+        },
+        config = function()
+            require("plugins.configs.git-worktree")
+        end,
+    },
+
+    {
+        "VonHeikemen/fine-cmdline.nvim",
+        requires = {
+            { "MunifTanjim/nui.nvim" },
+        },
     },
 })
