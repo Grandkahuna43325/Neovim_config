@@ -6,7 +6,8 @@ vim.opt.relativenumber = true
 vim.opt.scrolloff = 6
 vim.opt.clipboard = "unnamedplus"
 vim.g.mapleader = " "
-
+vim.opt.laststatus = 3
+vim.cmd("autocmd VimEnter * highlight Winseparator guibg=NONE")
 
 
 

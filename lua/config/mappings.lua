@@ -84,6 +84,21 @@ map("n", "<leader>gcw", "<cmd> lua require('telescope').extensions.git_worktree.
 --cmdline 
 map("n", ":", "<cmd>FineCmdline<CR>")
 
+--dap 
+-- vim.keymap.set("n", "<Leader>dt", ":DapToggleBreakpoint<CR>")
+-- vim.keymap.set("n", "<Leader>dx", ":DapTerminate<CR>")
+-- vim.keymap.set("n", "<Leader>do", ":DapStepOver<CR>")
+map("n", "<leader>db", "<cmd> !g++ --debug main.cpp -o main <CR> :lua require'dap'.continue()<cr>")
+map("n", "<leader>dt", ":lua require'dap'.toggle_breakpoint()<cr>")
+map("n", "<leader>dx", ":lua require'dap'.terminate()<cr>")
+map("n", "<leader>dc", ":lua require'dap'.continue()<cr>")
+map("n", "<leader>di", ":lua require'dap'.step_into()<cr>")
+map("n", "<leader>do", ":lua require'dap'.step_over()<cr>")
+map("n", "<leader>dO", ":lua require'dap'.step_out()<cr>")
+map("n", "<leader>dr", ":lua require'dap'.repl.open()<cr>")
+
+--custom 
+map("n", "<leader>gcc", "<cmd> !g++ main.cpp -o main && ./main <CR>")
 
 -- local opts = { buffer = bufnr, remap = false }
 --

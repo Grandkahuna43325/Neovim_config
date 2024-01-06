@@ -53,35 +53,29 @@ lazy.setup({
         end,
     },
 
-    -- {
-    --     "feline-nvim/feline.nvim",
-    --     config = function()
-    --         return require("plugins.configs.statusline")
-    --     end,
-    -- },
-    --
     {
-        "arsham/arshamiser.nvim",
-        dependencies = {
-            "arsham/arshlib.nvim",
-            "famiu/feline.nvim",
-            "rebelot/heirline.nvim",
-            "kyazdani42/nvim-web-devicons",
-        },
-        config = function()
-            -- ignore any parts you don't want to use
-            vim.cmd.colorscheme("moonfly")
-            require("arshamiser.feliniser")
-            -- or:
-            -- require("arshamiser.heirliniser")
-
-            _G.custom_foldtext = require("arshamiser.folding").foldtext
-            vim.opt.foldtext = "v:lua.custom_foldtext()"
-            -- if you want to draw a tabline:
-            vim.api.nvim_set_option("tabline", [[%{%v:lua.require("arshamiser.tabline").draw()%}]])
+        "freddiehaddad/feline.nvim",
+        opts = {},
+        config = function(_, opts)
+            require("feline").setup()
         end,
     },
-
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        main = "ibl",
+        opts = {},
+        config = function()
+            require("ibl").setup({
+                indent = {
+                    char = "│",
+                },
+                whitespace = {
+                    remove_blankline_trail = false,
+                },
+                scope = { enabled = false },
+            })
+        end,
+    },
     {
         "lewis6991/gitsigns.nvim",
         config = function()
@@ -203,16 +197,12 @@ lazy.setup({
             disable_filetype = { "TelescopePrompt", "vim" },
         },
     },
-
     {
         "kylechui/nvim-surround",
+        version = "*", -- Use for stability; omit to use `main` branch for the latest features
         event = "VeryLazy",
-        build = ":TSUpdate",
-        opts = {
-            highlight = { enable = true },
-        },
-        config = function(_, opts)
-            require("nvim-treesitter.configs").setup(opts)
+        config = function()
+            require("nvim-surround").setup()
         end,
     },
 
@@ -234,7 +224,18 @@ lazy.setup({
         "jackMort/ChatGPT.nvim",
         event = "VeryLazy",
         config = function()
-            require("chatgpt").setup()
+            require("chatgpt").setup({
+                popup_input = {
+                    submit = "<Cr>",
+                    submit_n = "<Cr>",
+                },
+                keymaps = {
+                    yank_last = "<C-y>",
+                    yank_last_code = "<C-y>",
+                    submit_in_chat = "<Cr>",
+                    new_session = "<C-n>",
+                },
+            })
         end,
         dependencies = {
             "MunifTanjim/nui.nvim",
@@ -380,12 +381,20 @@ lazy.setup({
             require("plugins.configs.dap")
         end,
     },
-    { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } },
+    { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" }, event = "VeryLazy" },
+    {
+        "folke/neodev.nvim",
+        opts = {},
+        config = function()
+            require("neodev").setup({
+                library = { plugins = { "nvim-dap-ui" }, types = true },
+            })
+        end,
+    },
     "rebelot/kanagawa.nvim",
     {
         "nvim-neorg/neorg",
         build = ":Neorg sync-parsers",
-        tag = "*",
         dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
             require("neorg").setup({
