@@ -176,7 +176,9 @@ local on_attach = function(_, bufnr)
 end
 
 local servers = {
-    clangd = {},
+    clangd = {
+	    cmd = { "clang++-18" }
+    },
     gopls = {},
     pyright = {},
     tailwindcss = {},

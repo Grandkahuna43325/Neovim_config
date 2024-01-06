@@ -359,11 +359,10 @@ lazy.setup({
         end,
     },
     { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } },
-    "rebelot/kanagawa.nvim",
+    {"rebelot/kanagawa.nvim"},
     {
         "nvim-neorg/neorg",
         build = ":Neorg sync-parsers",
-        tag = "*",
         dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
             require("neorg").setup({
