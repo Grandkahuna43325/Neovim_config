@@ -64,16 +64,16 @@ cmp.setup({
         --     vim_item.kind = (cmp_kinds[vim_item.kind] or "") .. vim_item.kind
         --     return vim_item
         -- end,
-	        format = require('lspkind').cmp_format({
+        format = require("lspkind").cmp_format({
             mode = "symbol",
             maxwidth = 50,
-            ellipsis_char = '...',
-            symbol_map = { Codeium = "", }
-        })
+            ellipsis_char = "...",
+            symbol_map = { Codeium = "" },
+        }),
     },
 
     sources = {
-	{ name = "codeium" },
+        { name = "codeium" },
         { name = "nvim_lsp" },
         { name = "luasnip" },
         { name = "buffer" },
@@ -160,4 +160,3 @@ M.luasnip = function(opts)
     })
 end
 return M
-
