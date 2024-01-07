@@ -60,13 +60,20 @@ luasnip.config.setup({})
 
 cmp.setup({
     formatting = {
-        format = function(_, vim_item)
-            vim_item.kind = (cmp_kinds[vim_item.kind] or "") .. vim_item.kind
-            return vim_item
-        end,
+        -- format = function(_, vim_item)
+        --     vim_item.kind = (cmp_kinds[vim_item.kind] or "") .. vim_item.kind
+        --     return vim_item
+        -- end,
+	        format = require('lspkind').cmp_format({
+            mode = "symbol",
+            maxwidth = 50,
+            ellipsis_char = '...',
+            symbol_map = { Codeium = "", }
+        })
     },
 
     sources = {
+	{ name = "codeium" },
         { name = "nvim_lsp" },
         { name = "luasnip" },
         { name = "buffer" },
