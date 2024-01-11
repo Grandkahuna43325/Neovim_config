@@ -26,6 +26,10 @@ lazy.setup({
         opts = {},
     },
 
+    { "tpope/vim-dadbod", },
+    { "kristijanhusak/vim-dadbod-ui", },
+    { "kristijanhusak/vim-dadbod-completion", },
+
     { "nvim-lua/plenary.nvim" },
 
     {
@@ -56,7 +60,7 @@ lazy.setup({
     {
         "freddiehaddad/feline.nvim",
         opts = {},
-        config = function(_, opts)
+        config = function(_, _)
             require("feline").setup()
         end,
     },

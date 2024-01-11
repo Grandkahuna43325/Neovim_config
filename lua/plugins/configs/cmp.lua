@@ -65,11 +65,17 @@ cmp.setup({
         --     return vim_item
         -- end,
         format = require("lspkind").cmp_format({
-            mode = "symbol",
+            -- mode = "symbol",
             maxwidth = 50,
             ellipsis_char = "...",
             symbol_map = { Codeium = "" },
+	    vim_item = function (_, vim_item)
+		vim_item.kind = (cmp_kinds[vim_item.kind] or "") .. vim_item.kind
+		return vim_item
+	    end,
         }),
+	expandable_indicator = true,
+	fields = { 'abbr', 'kind', 'menu' },
     },
 
     sources = {
@@ -79,6 +85,8 @@ cmp.setup({
         { name = "buffer" },
         { name = "nvim_lua" },
         { name = "path" },
+	{ name = "vim-dadbod-completion" },
+
     },
 
     window = {
