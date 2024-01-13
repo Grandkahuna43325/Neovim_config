@@ -18,6 +18,22 @@ end
 
 lazy.setup({
     {
+        "folke/noice.nvim",
+        event = "VeryLazy",
+	config = function()
+		require("plugins.configs.noice")
+	end,
+
+        dependencies = {
+            -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+            "MunifTanjim/nui.nvim",
+            -- OPTIONAL:
+            --   `nvim-notify` is only needed, if you want to use the notification view.
+            --   If not available, we use `mini` as the fallback
+            "rcarriga/nvim-notify",
+        },
+    },
+    {
         "smoka7/hop.nvim",
         config = function()
             require("hop").setup({})
@@ -26,9 +42,9 @@ lazy.setup({
         opts = {},
     },
 
-    { "tpope/vim-dadbod", },
-    { "kristijanhusak/vim-dadbod-ui", },
-    { "kristijanhusak/vim-dadbod-completion", },
+    { "tpope/vim-dadbod" },
+    { "kristijanhusak/vim-dadbod-ui" },
+    { "kristijanhusak/vim-dadbod-completion" },
 
     { "nvim-lua/plenary.nvim" },
 
@@ -454,10 +470,10 @@ lazy.setup({
         end,
     },
 
-    {
-        "VonHeikemen/fine-cmdline.nvim",
-        requires = {
-            { "MunifTanjim/nui.nvim" },
-        },
-    },
+    -- {
+    --     "VonHeikemen/fine-cmdline.nvim",
+    --     requires = {
+    --         { "MunifTanjim/nui.nvim" },
+    --     },
+    -- },
 })

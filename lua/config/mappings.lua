@@ -82,7 +82,7 @@ map("n", "<leader>gt", "<cmd> lua require('telescope').extensions.git_worktree.g
 map("n", "<leader>gcw", "<cmd> lua require('telescope').extensions.git_worktree.create_git_worktree() <CR>")
 
 --cmdline 
-map("n", ":", "<cmd>FineCmdline<CR>")
+-- map("n", ":", "<cmd>FineCmdline<CR>")
 
 --dap 
 -- vim.keymap.set("n", "<Leader>dt", ":DapToggleBreakpoint<CR>")

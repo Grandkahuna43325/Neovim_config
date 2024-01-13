@@ -11,11 +11,6 @@ require("formatter").setup({
 
             -- You can also define your own configuration
             function()
-                -- Supports conditional formatting
-                if util.get_current_buffer_file_name() == "special.lua" then
-                    return nil
-                end
-
                 -- Full specification of configurations is down below and in Vim help
                 -- files
                 return {
@@ -71,9 +66,9 @@ require("formatter").setup({
                 }
             end,
         },
-	cpp = {
-		require("formatter.filetypes.cpp").clangformat
-	},
+        cpp = {
+            require("formatter.filetypes.cpp").clangformat,
+        },
         -- Use the special "*" filetype for defining formatter configurations on
         -- any filetype
         ["*"] = {
