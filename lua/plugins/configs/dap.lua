@@ -31,4 +31,4 @@ dap.configurations.cpp = {
         args = {},
     },
 }
-
+dap.configurations.rust = dap.configurations.cpp

@@ -21,7 +21,7 @@ map("n", "<Leader>fw", ":Telescope live_grep <cr>")
 map("n", "<Leader>th", ":Telescope colorscheme <cr>")
 
 -- NvimTree mappings
-map("n", "<Leader>e", ":NvimTreeFocus <cr>")
+map("n", "<Leader>e", ":Neotree <cr>")
 
 -- Harpoon mappings
 -- map("n", "<Leader>a", function() harpoon:list():append() end)
