@@ -15,6 +15,9 @@ map("i", "jk", "<C-c>")
 map("i", "<esc>", "<C-c> :noh<cr>")
 map("n", "<esc>", ":noh <cr>")
 
+-- Undotree mappings
+map("n", "<Leader>u", ":UndotreeToggle <cr>")
+
 -- Telescope mappings
 map("n", "<Leader>ff", ":Telescope find_files <cr>")
 map("n", "<Leader>fw", ":Telescope live_grep <cr>")

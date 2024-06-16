@@ -23,7 +23,7 @@ normal mode "<Leader>fw" => live_grep
 normal mode "<Leader>e" => NvimTreeFocus
 
 -- Harpoon mappings(not working yet :])
--- normal mode "<Leader>a" => function( harpoon:list():append() end)
+-- normal mode "<Leader>a" => function( harpoon:list():add() end)
 -- normal mode "<Leader>j" => ":lua require('harpoon.ui'.nav_file(1) <cr>")
 -- normal mode "<Leader>k" => ":lua require('harpoon.ui'.nav_file(2) <cr>")
 -- normal mode "<Leader>l" => ":lua require('harpoon.ui'.nav_file(3) <cr>")

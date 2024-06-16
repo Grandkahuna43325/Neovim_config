@@ -18,6 +18,9 @@ end
 
 lazy.setup({
     {
+      "mbbill/undotree",
+    },
+    {
         "ziontee113/color-picker.nvim",
         config = function()
             require("plugins.configs.color-picker")
@@ -30,29 +33,29 @@ lazy.setup({
             "nvim-lua/plenary.nvim",
             "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
             "MunifTanjim/nui.nvim",
-            "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
-            {
-                "s1n7ax/nvim-window-picker",
-                version = "2.*",
-                config = function()
-                    require("window-picker").setup({
-                        filter_rules = {
-                            include_current_win = false,
-                            autoselect_one = true,
-                            -- filter using buffer options
-                            bo = {
-                                -- if the file type is one of following, the window will be ignored
-                                filetype = { "neo-tree", "neo-tree-popup", "notify" },
-                                -- if the buffer type is one of following, the window will be ignored
-                                buftype = { "terminal", "quickfix" },
-                            },
-                        },
-                    })
-                end,
-            },
+            "3rd/image.nvim",
         },
         config = function()
             require("plugins.configs.neo-tree")
+        end,
+    },
+    {
+        "s1n7ax/nvim-window-picker",
+        version = "2.*",
+        config = function()
+            require("window-picker").setup({
+                filter_rules = {
+                    include_current_win = false,
+                    autoselect_one = true,
+                    -- filter using buffer options
+                    bo = {
+                        -- if the file type is one of following, the window will be ignored
+                        filetype = { "neo-tree", "neo-tree-popup", "notify" },
+                        -- if the buffer type is one of following, the window will be ignored
+                        buftype = { "terminal", "quickfix" },
+                    },
+                },
+            })
         end,
     },
     {
@@ -336,6 +339,11 @@ lazy.setup({
     },
 
     {
+        "L3MON4D3/LuaSnip",
+        run = "make install_jsregexp",
+    },
+
+    {
         -- Autocompletion
         "hrsh7th/nvim-cmp",
         dependencies = {
@@ -467,8 +475,7 @@ lazy.setup({
     {
         "nvim-neorg/neorg",
         build = ":Neorg sync-parsers",
-        dependencies = { "nvim-lua/plenary.nvim",
-      "luarocks.nvim",},
+        dependencies = { "nvim-lua/plenary.nvim", "luarocks.nvim" },
         config = function()
             require("neorg").setup({
                 load = {
