@@ -13,6 +13,8 @@ vim.opt.tabstop = 2
 vim.opt.autoindent = true
 vim.opt.shiftwidth = 2
 
+--transparent background
+vim.g.moonflyTransparent = true
 
 
 -- vim.opt.langmap=defrztkiyoedrflgnjikolgzbnjmDEFRZTKIYOEDRFLGNJIKOLGZBNJM

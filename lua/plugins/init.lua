@@ -18,7 +18,7 @@ end
 
 lazy.setup({
     {
-      "mbbill/undotree",
+        "mbbill/undotree",
     },
     {
         "ziontee113/color-picker.nvim",
@@ -50,6 +50,7 @@ lazy.setup({
                     -- filter using buffer options
                     bo = {
                         -- if the file type is one of following, the window will be ignored
+                        -- filetype = { "neo-tree", "neo-tree-popup"},
                         filetype = { "neo-tree", "neo-tree-popup", "notify" },
                         -- if the buffer type is one of following, the window will be ignored
                         buftype = { "terminal", "quickfix" },
@@ -73,6 +74,14 @@ lazy.setup({
             --   If not available, we use `mini` as the fallback
             "rcarriga/nvim-notify",
         },
+    },
+    {
+        "rcarriga/nvim-notify",
+        config = function()
+            require("notify").setup({
+                background_colour = "#000000",
+            })
+        end,
     },
     {
         "ThePrimeagen/vim-apm",
@@ -133,8 +142,14 @@ lazy.setup({
     {
         "freddiehaddad/feline.nvim",
         opts = {},
-        config = function(_, _)
-            require("feline").setup()
+        config = function()
+            require("feline").setup({
+                theme = {
+                    bg = "black",
+                    black = "#000000",
+                    oceanblue = "#002262",
+                },
+            })
         end,
     },
     {
