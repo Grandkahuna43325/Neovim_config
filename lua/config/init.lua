@@ -16,7 +16,6 @@ vim.opt.shiftwidth = 2
 --transparent background
 vim.g.moonflyTransparent = true
 
-
 -- vim.opt.langmap=defrztkiyoedrflgnjikolgzbnjmDEFRZTKIYOEDRFLGNJIKOLGZBNJM
 -- vim.opt.langmap = {['y'] = "'" }
 -- vim.opt.langmap = {['Y'] = '"'}
