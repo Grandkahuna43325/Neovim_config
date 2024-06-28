@@ -75,7 +75,7 @@ map("n", "<Tab>", "gt")
 map("n", "<leader>t", "<cmd> TroubleToggle <CR>")
 
 --hop
-map("n", "<leader>h", "<cmd> HopWord <CR>")
+map("n", "<leader><space>", "<cmd> HopWord <CR>")
 
 -- worktree
 map("n", "<leader>gt", "<cmd> lua require('telescope').extensions.git_worktree.git_worktrees() <CR>")

@@ -78,7 +78,9 @@ lazy.setup({
     {
         "rcarriga/nvim-notify",
         config = function()
-            require("notify").setup()
+            require("notify").setup({
+                background_colour = "#000000",
+            })
         end,
     },
     {
@@ -142,15 +144,15 @@ lazy.setup({
         "freddiehaddad/feline.nvim",
         opts = {},
         config = function()
-            require('feline').setup({
-              theme = {
+            require("feline").setup({
+                theme = {
                     bg = "NONE",
                     black = "NONE",
                     oceanblue = "#002262",
                 },
             })
         end,
-      },
+    },
     {
         "lukas-reineke/indent-blankline.nvim",
         main = "ibl",
