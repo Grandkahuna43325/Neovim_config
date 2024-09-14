@@ -1,58 +1,68 @@
-# Neovim_config
 
-# Showcase
+# I really don't know what to write here
+## Installation:
+cd ~/.config 
+rm -fr nvim 
+mkdir nvim 
+cd nvim 
+git clone https://github.com/Grandkahuna43325/Neovim_config/ -b rewrite 
+cd ~
 
-![neovim image](img/nvim.webp)
-![neovim image1](img/nvim1.webp)
+Shortcuts:
 
-### ChatGPT
+-- Normal mappings
+insert mode "jk" => "<C-c>"
+insert mode "<esc>" => "<C-c> :noh<cr>"
+normal mode "<esc>" => ":noh <cr>"
 
-![ChatGPT](img/GPT.png)
+-- Telescope mappings
+normal mode "<Leader>ff" => find_files
+normal mode "<Leader>fw" => live_grep
 
-## This is customized NvChad with some remaps and built in ChatGPT
+-- NvimTree mappings
+normal mode "<Leader>e" => NvimTreeFocus
 
-### If you are looking for some information I encourage you to read [this](https://nvchad.com)
+-- Harpoon mappings(not working yet :])
+-- normal mode "<Leader>a" => function( harpoon:list():add() end)
+-- normal mode "<Leader>j" => ":lua require('harpoon.ui'.nav_file(1) <cr>")
+-- normal mode "<Leader>k" => ":lua require('harpoon.ui'.nav_file(2) <cr>")
+-- normal mode "<Leader>l" => ":lua require('harpoon.ui'.nav_file(3) <cr>")
+-- normal mode "<Leader>;" => ":lua require('harpoon.ui'.nav_file(4) <cr>")
+-- normal mode "<Leader>m" => ":Telescope harpoon marks <cr>"
 
-#### If you don't know shortcuts press space+ch. In the custom section are ones that I made.
 
-## Installation
+-- Comment
+normal mode "<Leader>/" => toggle comment
+visual mode "<Leader>/" => toggle comment
 
-**If your neovim config directory is different than mine(~/.config/nvim/) you schould change the directories in the commands!!!**
+--ChatGPT
+normal mode "<Leader>g" => ChatGPT
+visual mode "<Leader>g" => ChatGPTEditWithInstructions
 
-### If you have neovim nerdfonts ripgrep and gcc you can skip this step
+--Window stuff
+normal mode "<C-h>" => "<C-w>h"
+normal mode "<C-l>" => "<C-w>l"
+normal mode "<C-j>" => "<C-w>j"
+normal mode "<C-k>" => "<C-w>k"
 
-Install homebrew with this command:
+-- sessions
+normal mode "<leader>ns" => create new session
+normal mode "<leader>rs" => load session 
 
-`/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+-- formatter
+normal mode "<leader>=" => Format
+normal mode "<leader>sl" => toggle split with treejs
 
-After installation you schould paste this commands(they will finish installing brew and they will install gcc nvim and ripgrep):
 
-`(echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> ~/.profile && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && brew install gcc && brew install nvim && brew install ripgrep`
+--github
+normal mode "<leader>ga" => Git add *
+normal mode "<leader>cm" => Git commit 
+normal mode "<leader>gp" => Git push 
+normal mode "<leader>gd" => Gdiff 
 
-If you don't have [nerdfonts](https://www.nerdfonts.com/#home) you really schould install it. I won't cover it here because it's really easy and you can find a ton of articles like [this one](https://ostechnix.com/install-nerd-fonts-to-add-glyphs-in-your-code-on-linux/).
+--tabs 
+normal mode "<Tab>" => 'gt'
 
-### If you have all the requirements you can proceed
+--trouble
+normal mode "<leader>t" => toggle trouble window
 
-Paste this command:
-
-`git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1 && nvim`
-
-You will be asked if you want to install the NvChad press y and when the installation is finished copy this command:
-
-Now we are going to replace the NvChad config with this one using this two commands:
-
-**You will see some errors but just press enter.**
-
-`rm -rf ~/.config/nvim && git clone https://github.com/Grandkahuna43325/Neovim_config ~/.config/nvim --depth 1 && nvim`
-
-We are almost finished. You just need to add your openai api key to $OPENAI_API_KEY variable. Follow [this](https://elephas.app/blog/how-to-create-openai-api-keys-cl5c4f21d281431po7k8fgyol0) tutorial and when you finish paste this command:
-
-`echo export OPENAI_API_KEY=YOUR_API_KEY >> ~/.bashrc && source ~/.bashrc`
-`echo export github_username=YOUR_GITHUB_USERNAME >> ~/.bashrc && source ~/.bashrc`
-`echo export github_token=YOUR_GITHUB_TOKEN >> ~/.bashrc && source ~/.bashrc`
-
-If you are using bash and not zsh it schould work, but if you are using zsh paste this command:
-
-`echo export OPENAI_API_KEY=YOUR_API_KEY >> ~/.zshrc && source /.zshrc`
-`echo export github_username=YOUR_GITHUB_USERNAME >> ~/.bashrc && source ~/.bashrc`
-`echo export github_token=YOUR_GITHUB_TOKEN >> ~/.bashrc && source ~/.bashrc`
