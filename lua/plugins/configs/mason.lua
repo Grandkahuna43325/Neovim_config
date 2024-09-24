@@ -131,39 +131,39 @@ local on_attach = function(_, bufnr)
 
     vim.diagnostic.config(config)
 
-    local opts = { buffer = bufnr, remap = false }
+    local opts = { buffer = bufnr, noremap = true, silent = true }
 
-    vim.keymap.set("n", "gd", function()
-        vim.lsp.buf.definition()
-    end, { opts, desc = 'Go to definition' })
-    vim.keymap.set("n", "K", function()
-        vim.lsp.buf.hover()
-    end, { opts, desc = 'Lsp hover' })
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, vim.tbl_extend("force", opts, { desc = "Go to definition" }))
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", opts, { desc = "Lsp hover" }))
     -- vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
-    vim.keymap.set("n", "<leader>d", function()
-        vim.diagnostic.open_float()
-    end, { opts, desc = 'Lsp diagnostic' })
-    vim.keymap.set("n", "[d", function()
-        vim.diagnostic.goto_next()
-    end, { opts, desc = 'Go to next' })
-    vim.keymap.set("n", "]d", function()
-        vim.diagnostic.goto_prev()
-    end, { opts, desc = 'Go to previous diagnostic' })
-    vim.keymap.set("n", "<leader>ca", function()
-        vim.lsp.buf.code_action()
-    end, { opts, desc = 'Lsp code action' })
-    vim.keymap.set("n", "gr", function()
-        vim.lsp.buf.references()
-    end, { opts, desc = 'Go to references' })
-    vim.keymap.set("n", "<leader>rn", function()
-        vim.lsp.buf.rename()
-    end, { opts, desc = 'Lsp rename' })
-    vim.keymap.set("n", "<leader>gi", function()
-        vim.lsp.buf.implementation()
-    end, { opts, desc = 'Go to implementation' })
-    vim.keymap.set("n", "<leader>fm", function()
-        vim.lsp.buf.format({ async = true })
-    end, { opts, desc = "Format with lsp" })
+    vim.keymap.set(
+        "n",
+        "<leader>d",
+        vim.diagnostic.open_float,
+        vim.tbl_extend("force", opts, { desc = "Lsp diagnostic" })
+    )
+    vim.keymap.set("n", "[d", vim.diagnostic.goto_next, vim.tbl_extend("force", opts, { desc = "Go to next" }))
+    vim.keymap.set(
+        "n",
+        "]d",
+        vim.diagnostic.goto_prev,
+        vim.tbl_extend("force", opts, { desc = "Go to previous diagnostic" })
+    )
+    vim.keymap.set(
+        "n",
+        "<leader>ca",
+        vim.lsp.buf.code_action,
+        vim.tbl_extend("force", opts, { desc = "Lsp code action" })
+    )
+    vim.keymap.set("n", "gr", vim.lsp.buf.references, vim.tbl_extend("force", opts, { desc = "Go to references" }))
+    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, vim.tbl_extend("force", opts, { desc = "Lsp rename" }))
+    vim.keymap.set(
+        "n",
+        "<leader>gi",
+        vim.lsp.buf.implementation,
+        vim.tbl_extend("force", opts, { desc = "Go to implementation" })
+    )
+    vim.keymap.set("n", "<leader>fm", vim.lsp.buf.format, vim.tbl_extend("force", opts, { desc = "Format with lsp" }))
 
     -- nmap("<leader>di", "<Cmd>lua require'jdtls'.organize_imports()<CR>", opts)
     -- nmap("<leader>dt", "<Cmd>lua require'jdtls'.test_class()<CR>", opts)

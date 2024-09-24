@@ -29,7 +29,20 @@ require("formatter").setup({
         },
 
         javascript = {
-            require("formatter.filetypes.lua").prettier,
+            require("formatter.filetypes.javascript").prettier,
+
+            function()
+                return {
+                    exe = "prettier",
+                    args = { "--write", util.get_current_buffer_file_name() },
+                    -- args = { "--stdin-filepath", util.get_current_buffer_file_path() },
+                    stdin = true,
+                }
+            end,
+        },
+
+        typescript = {
+            require("formatter.filetypes.typescript").prettier,
 
             function()
                 return {
