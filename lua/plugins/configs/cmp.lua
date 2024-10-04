@@ -85,7 +85,7 @@ cmp.setup({
         { name = "nvim_lua" },
         { name = "path" },
         { name = "vim-dadbod-completion" },
-        { name = "codeium" },
+        -- { name = "codeium" },
 
     },
 
