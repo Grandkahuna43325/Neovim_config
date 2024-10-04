@@ -515,6 +515,9 @@ lazy.setup({
         config = function()
             require("plugins.configs.dap")
         end,
+        requires = {
+          { "nvim-neotest/nvim-nio" },
+        }
     },
     { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" }, event = "VeryLazy" },
     {
