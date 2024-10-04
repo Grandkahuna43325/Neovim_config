@@ -510,6 +510,7 @@ lazy.setup({
             require("plugins.configs.mason")
         end,
     },
+    { "nvim-neotest/nvim-nio" },
     {
         "mfussenegger/nvim-dap",
         config = function()
