@@ -180,6 +180,10 @@ local servers = {
     gopls = {},
     pyright = {},
     tailwindcss = {},
+    rnix = {
+      cmd = { "rnix-lsp", "--stdio" },
+      filetypes = { "nix" },
+    },
     rust_analyzer = {
         root_dir = function()
             return vim.loop.cwd()

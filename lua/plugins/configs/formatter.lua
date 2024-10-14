@@ -27,7 +27,17 @@ require("formatter").setup({
                 }
             end,
         },
+        nix = {
+          require("formatter.filetypes.nix").nixpkgs_fmt,
 
+          function()
+            return {
+              exe = "nixpkgs-fmt",
+              stdin = true,
+              args = {},
+            }
+          end,
+        },
         javascript = {
             require("formatter.filetypes.javascript").prettier,
 
