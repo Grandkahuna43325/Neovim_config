@@ -14,5 +14,5 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("plugins")
-require("plugins.configs.lsp")
-require("plugins.configs.mason")
+-- require("plugins.configs.lsp")
+-- require("plugins.configs.mason")

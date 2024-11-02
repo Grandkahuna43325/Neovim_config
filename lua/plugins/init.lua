@@ -21,6 +21,14 @@ lazy.setup({
         "mbbill/undotree",
     },
     {
+        "akinsho/git-conflict.nvim",
+        version = "*",
+        config = true,
+    },
+    {
+        "yorickpeterse/nvim-pqf",
+    },
+    {
         "ziontee113/color-picker.nvim",
         config = function()
             require("plugins.configs.color-picker")
@@ -78,9 +86,9 @@ lazy.setup({
     {
         "rcarriga/nvim-notify",
         -- config = function()
-            -- require("notify").setup({
-            --     background_colour = "#000000",
-            -- })
+        -- require("notify").setup({
+        --     background_colour = "#000000",
+        -- })
         -- end,
     },
     {
@@ -104,7 +112,6 @@ lazy.setup({
         "smoka7/hop.nvim",
         config = function()
             require("hop").setup({})
-            require("plugins.configs.hop")
         end,
         opts = {},
     },
@@ -374,29 +381,51 @@ lazy.setup({
 
     { "MunifTanjim/nui.nvim" },
 
+    -- LSP CONFIG
     {
-        -- LSP Configuration & Plugins
+        -- Main LSP Configuration
         "neovim/nvim-lspconfig",
-        init_options = {
-            userLanguages = {
-                eelixir = "html-eex",
-                eruby = "erb",
-                rust = "html",
-            },
-        },
         dependencies = {
-            -- Automatically install LSPs to stdpath for neovim
-            { "williamboman/mason.nvim", config = true },
+            -- Automatically install LSPs and related tools to stdpath for Neovim
+            { "williamboman/mason.nvim", config = true }, -- NOTE: Must be loaded before dependants
             "williamboman/mason-lspconfig.nvim",
+            "WhoIsSethDaniel/mason-tool-installer.nvim",
 
-            -- Useful status updates for LSP
+            -- Useful status updates for LSP.
             -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-            { "j-hui/fidget.nvim", tag = "legacy", opts = {} },
+            { "j-hui/fidget.nvim", opts = {} },
 
-            -- Additional lua configuration, makes nvim stuff amazing!
-            "folke/neodev.nvim",
+            -- Allows extra capabilities provided by nvim-cmp
+            "hrsh7th/cmp-nvim-lsp",
         },
+        config = function()
+            return require("plugins.configs.mason")
+        end,
     },
+
+    -- {
+    --     -- LSP Configuration & Plugins
+    --     "neovim/nvim-lspconfig",
+    --     init_options = {
+    --         userLanguages = {
+    --             eelixir = "html-eex",
+    --             eruby = "erb",
+    --             rust = "html",
+    --         },
+    --     },
+    --     dependencies = {
+    --         -- Automatically install LSPs to stdpath for neovim
+    --         { "williamboman/mason.nvim", config = true },
+    --         "williamboman/mason-lspconfig.nvim",
+    --
+    --         -- Useful status updates for LSP
+    --         -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
+    --         { "j-hui/fidget.nvim", tag = "legacy", opts = {} },
+    --
+    --         -- Additional lua configuration, makes nvim stuff amazing!
+    --         "folke/neodev.nvim",
+    --     },
+    -- },
 
     {
         "L3MON4D3/LuaSnip",
@@ -499,17 +528,17 @@ lazy.setup({
     --     },
     -- },
 
-    {
-        "williamboman/mason.nvim",
-        build = ":MasonUpdate", -- :MasonUpdate updates registry contents
-        cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
-        opts = function()
-            return require("plugins.configs.mason")
-        end,
-        config = function()
-            require("plugins.configs.mason")
-        end,
-    },
+    -- {
+    --     "williamboman/mason.nvim",
+    --     build = ":MasonUpdate", -- :MasonUpdate updates registry contents
+    --     cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
+    --     opts = function()
+    --         return require("plugins.configs.mason")
+    --     end,
+    --     config = function()
+    --         require("plugins.configs.mason")
+    --     end,
+    -- },
     { "nvim-neotest/nvim-nio" },
     {
         "mfussenegger/nvim-dap",
@@ -517,8 +546,8 @@ lazy.setup({
             require("plugins.configs.dap")
         end,
         requires = {
-          { "nvim-neotest/nvim-nio" },
-        }
+            { "nvim-neotest/nvim-nio" },
+        },
     },
     { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" }, event = "VeryLazy" },
     {

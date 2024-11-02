@@ -4,11 +4,9 @@ local M = {
   pinned = false, -- When pinned, the opened trouble window will be bound to the current buffer
   warn_no_results = true, -- show a warning when there are no results
   open_no_results = true, -- open the trouble window when there are no results
-  ---@type trouble.Window.opts
   win = {}, -- window options for the results window. Can be a split or a floating window.
   -- Window options for the preview window. Can be a split, floating window,
   -- or `main` to show the preview in the main editor window.
-  ---@type trouble.Window.opts
   preview = {
     type = "main",
     -- when a buffer is not yet loaded, the preview window will be created
@@ -18,7 +16,6 @@ local M = {
   },
   -- Key mappings can be set to the name of a builtin action,
   -- or you can define your own custom action.
-  ---@type table<string, trouble.Action.spec|false>
   keys = {
     ["?"] = "help",
     r = "refresh",
@@ -77,7 +74,6 @@ local M = {
       desc = "Toggle Severity Filter",
     },
   },
-  ---@type table<string, trouble.Mode>
   modes = {
     -- sources define their own modes, which you can use directly,
     -- or override like in the example below
