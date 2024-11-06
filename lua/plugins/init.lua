@@ -18,6 +18,14 @@ end
 
 lazy.setup({
     {
+        "MeanderingProgrammer/render-markdown.nvim",
+        dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+        opts = {},
+        config = function()
+            require("plugins.configs.render-markdown")
+        end,
+    },
+    {
         "mbbill/undotree",
     },
     {
