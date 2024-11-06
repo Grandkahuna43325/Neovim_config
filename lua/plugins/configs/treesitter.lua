@@ -1,12 +1,12 @@
-local options = {
-  ensure_installed = { "lua", "rust", "c++", "html", "css", "javascript", "nu" },
+require("nvim-treesitter.configs").setup({
+    ensure_installed = { "lua", "rust", "cpp", "html", "css", "javascript", "markdown", "markdown_inline" },
 
-  highlight = {
-    enable = true,
-    use_languagetree = true,
-  },
+    -- Highlight for inline code
+    highlight_inline = "RenderMarkdownCodeInline",
+    highlight = {
+        enable = true,
+        use_languagetree = true,
+    },
 
-  indent = { enable = true },
-}
-
-return options
+    indent = { enable = true },
+})
