@@ -10,9 +10,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
         end
 
-
-        map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-        map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+        map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+        map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
         map("gD", vim.lsp.buf.declaration, "Go to declaration")
         map("K", vim.lsp.buf.hover, "Lsp hover")
         map("<leader>d", vim.diagnostic.open_float, "Lsp diagnostic")
@@ -26,17 +25,18 @@ vim.api.nvim_create_autocmd("LspAttach", {
         -- Jump to the type of the word under your cursor.
         --  Useful when you're not sure what type a variable is and you want to see
         --  the definition of its *type*, not where it was *defined*.
-        map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
+        map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
         -- Fuzzy find all the symbols in your current document.
         --  Symbols are things like variables, functions, types, etc.
-        map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+        map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
 
         -- Fuzzy find all the symbols in your current workspace.
         --  Similar to document symbols, except searches over your entire project.
-        map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+        map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
     end,
 })
 
+local util = require("lspconfig.util")
 
 local servers = {
     clangd = {},
@@ -44,6 +44,17 @@ local servers = {
     pyright = {},
     tailwindcss = {},
     nil_ls = {},
+    denols = {
+        root_dir = util.root_pattern("deno.json", "deno.jsonc"),
+        unstable = true,
+        suggest = {
+            imports = {
+                hosts = {
+                    ["https://deno.land"] = true,
+                },
+            },
+        },
+    },
     rust_analyzer = {
         root_dir = function()
             return vim.loop.cwd()
@@ -74,6 +85,8 @@ local servers = {
     tsserver = {
         filetypes = { "typescript", "typescriptreact", "typescript.tsx", "javascript" },
         cmd = { "typescript-language-server", "--stdio" },
+        root_dir = util.root_pattern("package.json"),
+        single_file_support = false,
     },
     html = { filetypes = { "html", "twig", "hbs" } },
     lua_ls = {
@@ -110,7 +123,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 local ensure_installed = vim.tbl_keys(servers or {})
 vim.list_extend(ensure_installed, {
     "stylua",
-    "prettier"
+    "prettier",
 })
 require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 

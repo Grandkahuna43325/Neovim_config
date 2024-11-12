@@ -14,6 +14,9 @@ vim.opt.autoindent = true
 vim.opt.shiftwidth = 2
 vim.opt.termguicolors = true
 
+vim.g.markdown_fenced_languages = {
+  "ts=typescript"
+}
 --transparent background
 vim.g.moonflyTransparent = true
 
