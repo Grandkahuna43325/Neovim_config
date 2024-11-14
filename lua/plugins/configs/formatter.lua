@@ -57,8 +57,8 @@ require("formatter").setup({
             function()
                 return {
                     exe = "prettier",
-                    args = { "--write", util.get_current_buffer_file_name() },
-                    -- args = { "--stdin-filepath", util.get_current_buffer_file_path() },
+                    -- args = { "--write", util.get_current_buffer_file_name() },
+                    args = { "--stdin-filepath", util.get_current_buffer_file_path() },
                     stdin = true,
                 }
             end,
