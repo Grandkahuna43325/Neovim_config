@@ -73,6 +73,7 @@ map("n", "<Tab>", "gt")
 
 --trouble
 map("n", "<leader>t", "<cmd> Trouble diagnostics toggle <CR>", { desc = 'Trouble diagnostics toggle'})
+map("n", "<leader>qn", "<cmd> lua require'trouble'.next({jump=true}) <CR>", { desc = 'Trouble jump to next'})
 
 --hop
 map("n", "<leader><space>", "<cmd> HopWord <CR>", { desc = 'HopWord'})

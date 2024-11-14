@@ -46,7 +46,7 @@ local options = {
     mappings = {
       n = { 
         ["q"] = require("telescope.actions").close,
-        ["<leader>q"] = require("telescope.actions").send_to_qflist + require("telescope.actions").open_qflist
+        ["<leader>q"] = require("trouble.sources.telescope").open
       },
     },
   },
