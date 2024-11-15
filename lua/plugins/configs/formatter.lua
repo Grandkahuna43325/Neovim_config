@@ -28,15 +28,15 @@ require("formatter").setup({
             end,
         },
         nix = {
-          require("formatter.filetypes.nix").nixpkgs_fmt,
+            require("formatter.filetypes.nix").nixpkgs_fmt,
 
-          function()
-            return {
-              exe = "nixpkgs-fmt",
-              stdin = true,
-              args = {},
-            }
-          end,
+            function()
+                return {
+                    exe = "nixpkgs-fmt",
+                    stdin = true,
+                    args = {},
+                }
+            end,
         },
         javascript = {
             require("formatter.filetypes.javascript").prettier,
@@ -60,6 +60,22 @@ require("formatter").setup({
                     -- args = { "--write", util.get_current_buffer_file_name() },
                     args = { "--stdin-filepath", util.get_current_buffer_file_path() },
                     stdin = true,
+                }
+            end,
+        },
+
+        css = {
+            require("formatter.filetypes.css").prettierd,
+
+            function()
+                return {
+                    exe = "prettierd",
+                    args = {
+                        "--stdin-filepath",
+                        util.escape_path(util.get_current_buffer_file_path()),
+                    },
+                    stdin = true,
+                    try_node_modules = true,
                 }
             end,
         },
@@ -93,15 +109,15 @@ require("formatter").setup({
             require("formatter.filetypes.cpp").clangformat,
         },
         json = {
-          require("formatter.filetypes.json").fixjson,
-          function ()
-            return {
-              exe = "fixjson",
-              args = { "--stdin-filename", util.get_current_buffer_file_name() },
-              stdin = true,
-              try_node_modules = true,
-            }
-          end,
+            require("formatter.filetypes.json").fixjson,
+            function()
+                return {
+                    exe = "fixjson",
+                    args = { "--stdin-filename", util.get_current_buffer_file_name() },
+                    stdin = true,
+                    try_node_modules = true,
+                }
+            end,
         },
         -- Use the special "*" filetype for defining formatter configurations on
         -- any filetype
