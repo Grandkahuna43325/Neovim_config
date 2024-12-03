@@ -101,6 +101,12 @@ map("n", "<leader>do", ":lua require'dap'.step_over()<cr>")
 map("n", "<leader>dO", ":lua require'dap'.step_out()<cr>")
 map("n", "<leader>dr", ":lua require'dap'.repl.open()<cr>")
 
+-- Kulala(requests)
+map("n", "<leader>rr", ":lua require('kulala').run()<cr>", {desc = 'Kulala run request'})
+map("n", "<leader>ri", ":lua require('kulala').inspect()<cr>", {desc = 'Kulala inspect'})
+map("n", "<leader>rs", ":lua require('kulala').show_stats()<cr>", {desc = 'Kulala show stats'})
+map("n", "<leader>rq", ":lua require('kulala').scratchpad()<cr>", {desc = 'Kulala quick request'})
+
 --custom 
 map("n", "<leader>gcc", "<cmd> !g++ main.cpp -o main && ./main <CR>", { desc = 'Compile & run main.cpp'})
 

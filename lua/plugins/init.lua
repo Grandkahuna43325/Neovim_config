@@ -34,17 +34,23 @@ lazy.setup({
             lang = "rust",
         },
     },
-    {
-        "heilgar/nvim-http-client",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-        },
-        config = function()
-            require("http_client").setup({
-                -- Optional: Configure default options here
-            })
-        end,
-    },
+  { 'mistweaverco/kulala.nvim', opts = {
+       display_mode = "float",
+        default_view = "headers_body",
+       default_winbar_panes = { "body", "headers", "headers_body" },
+        winbar = true,
+  } },
+    -- {
+    --     "heilgar/nvim-http-client",
+    --     dependencies = {
+    --         "nvim-lua/plenary.nvim",
+    --     },
+    --     config = function()
+    --         require("http_client").setup({
+    --             -- Optional: Configure default options here
+    --         })
+    --     end,
+    -- },
     {
         "MeanderingProgrammer/render-markdown.nvim",
         dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
