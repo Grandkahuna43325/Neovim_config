@@ -14,7 +14,7 @@ end
 
 dap.adapters.lldb = {
     type = "executable",
-    command = "/usr/bin/lldb-vscode", -- adjust as needed, must be absolute path
+    command = vim.fn.system('which lldb-vscode'):gsub('\n', '') or "/usr/bin/lldb-vscode", -- adjust as needed, must be absolute path
     name = "lldb",
 }
 
@@ -32,3 +32,4 @@ dap.configurations.cpp = {
     },
 }
 dap.configurations.rust = dap.configurations.cpp
+dap.configurations.c = dap.configurations.cpp

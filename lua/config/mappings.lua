@@ -109,6 +109,7 @@ map("n", "<leader>rq", ":lua require('kulala').scratchpad()<cr>", {desc = 'Kulal
 
 --custom 
 map("n", "<leader>gcc", "<cmd> !g++ main.cpp -o main && ./main <CR>", { desc = 'Compile & run main.cpp'})
+map('n', '<leader>m', ':tab Man <C-r><C-w><CR>', { noremap = true, silent = true, desc = "open man page for current word" })
 
 -- local opts = { buffer = bufnr, remap = false }
 --

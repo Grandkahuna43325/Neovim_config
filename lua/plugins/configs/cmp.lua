@@ -42,21 +42,21 @@ local function border(hl_name)
 end
 
 local luasnip = require("luasnip")
+local s = luasnip.snippet
+local t = luasnip.text_node
+
+local i = luasnip.insert_node
+
+luasnip.add_snippets("javascript", {
+    s("cl", { t('console.log('), i(1), t(');'), t({"", ""})}),
+})
+luasnip.add_snippets("typescript", {
+    s("cl", { t('console.log('), i(1), t(');'), t({"", ""})}),
+})
+
 require("luasnip.loaders.from_vscode").lazy_load()
 require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./snippets" } })
 luasnip.config.setup({})
-
--- local t = luasnip.text_node
--- local i = luasnip.insert_node
--- local s = luasnip.snippet
--- local f = luasnip.function_node
--- local function fn(
--- 	args,  -- text from i(2) in this example i.e. { { "456" } }
--- 	parent, -- parent snippet or parent node
--- 	user_args -- user_args from opts.user_args
--- )
--- 	return args[1][1] .. user_args
--- end
 
 cmp.setup({
     formatting = {
@@ -112,9 +112,7 @@ cmp.setup({
         ["<CR>"] = cmp.mapping.confirm({ select = true }),
         ["<C-Space>"] = cmp.mapping.complete(),
         ["<Tab>"] = cmp.mapping(function(fallback)
-            -- if cmp.visible() then
-            -- cmp.select_next_item()
-            -- else
+            
             if require("luasnip").expand_or_jumpable() then
                 vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
             else

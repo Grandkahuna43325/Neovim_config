@@ -18,6 +18,40 @@ end
 
 lazy.setup({
     {
+        "james-t-larson/posting.nvim",
+        config = function()
+            require("posting").setup({
+                keybinds = {
+                    {
+                        binding = "<leader>pd",
+                        command = ":OpenPosting --collection posting-collection --env posting-envs/staging.env<CR>",
+                        desc = "Open Posting with dev env",
+                    },
+                },
+                ui = {
+                    border = "rounded", -- Border style for the Posting window
+                    width = 0.95, -- Width of the window relative to the editor
+                    height = 0.87, -- Height of the window relative to the editor
+                    x = 0.5, -- Horizontal center
+                    y = 0.5, -- Vertical center
+                },
+            })
+        end,
+    },
+    {
+        "3rd/time-tracker.nvim",
+        dependencies = {
+            "3rd/sqlite.nvim",
+        },
+        event = "VeryLazy",
+        opts = {
+            data_file = vim.fn.stdpath("data") .. "/time-tracker.db",
+        },
+        config = function()
+            require("plugins.configs.time-tracker")
+        end,
+    },
+    {
         "kawre/leetcode.nvim",
         build = ":TSUpdate html",
         dependencies = {
@@ -32,14 +66,92 @@ lazy.setup({
         opts = {
             -- configuration goes here
             lang = "rust",
+            plugins = {
+                non_standalone = true,
+            },
+            ["question_enter"] = {
+                function()
+                    local file_extension = vim.fn.expand("%:e")
+                    if file_extension == "rs" then
+                        local target_dir = vim.fn.stdpath("data") .. "/leetcode"
+                        local output_file = target_dir .. "/rust-project.json"
+
+                        if vim.fn.isdirectory(target_dir) == 1 then
+                            local crates = ""
+                            local next = ""
+
+                            local rs_files = vim.fn.globpath(target_dir, "*.rs", false, true)
+                            for _, f in ipairs(rs_files) do
+                                local file_path = f
+                                crates = crates
+                                    .. next
+                                    .. '{"root_module": "'
+                                    .. file_path
+                                    .. '","edition": "2021","deps": []}'
+                                next = ","
+                            end
+
+                            if crates == "" then
+                                print("No .rs files found in directory: " .. target_dir)
+                                return
+                            end
+
+                            local sysroot_src = vim.fn.system("rustc --print sysroot"):gsub("\n", "")
+                                .. "/lib/rustlib/src/rust/library"
+
+                            local json_content = '{"sysroot_src": "'
+                                .. sysroot_src
+                                .. '", "crates": ['
+                                .. crates
+                                .. "]}"
+
+                            local file = io.open(output_file, "w")
+                            if file then
+                                file:write(json_content)
+                                file:close()
+
+                                local clients = vim.lsp.get_clients()
+                                local rust_analyzer_attached = false
+                                for _, client in ipairs(clients) do
+                                    if client.name == "rust_analyzer" then
+                                        rust_analyzer_attached = true
+                                        break
+                                    end
+                                end
+
+                                if rust_analyzer_attached then
+                                    vim.cmd("LspRestart rust_analyzer")
+                                end
+                            else
+                                print("Failed to open file: " .. output_file)
+                            end
+                        else
+                            print("Directory " .. target_dir .. " does not exist.")
+                        end
+                    end
+                end,
+            },
         },
     },
-  { 'mistweaverco/kulala.nvim', opts = {
-       display_mode = "float",
-        default_view = "headers_body",
-       default_winbar_panes = { "body", "headers", "headers_body" },
-        winbar = true,
-  } },
+    {
+        "rest-nvim/rest.nvim",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            opts = function(_, opts)
+                opts.ensure_installed = opts.ensure_installed or {}
+                table.insert(opts.ensure_installed, "http")
+            end,
+        },
+    },
+    {
+        "mistweaverco/kulala.nvim",
+        opts = {
+            display_mode = "float",
+            default_view = "headers_body",
+            default_winbar_panes = { "body", "headers", "headers_body" },
+            winbar = true,
+        },
+    },
     -- {
     --     "heilgar/nvim-http-client",
     --     dependencies = {
@@ -232,12 +344,12 @@ lazy.setup({
         end,
     },
 
-    {
-        "simrat39/rust-tools.nvim",
-        config = function()
-            return require("plugins.configs.rust-tools")
-        end,
-    },
+    -- {
+    --     "simrat39/rust-tools.nvim",
+    --     config = function()
+    --         return require("plugins.configs.rust-tools")
+    --     end,
+    -- },
 
     {
         "freddiehaddad/feline.nvim",
@@ -437,6 +549,9 @@ lazy.setup({
         config = function()
             require("plugins.configs.treesitter")
         end,
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter-context",
+        },
         build = ":TSUpdate",
     },
 

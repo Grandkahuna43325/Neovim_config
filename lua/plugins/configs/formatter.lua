@@ -108,6 +108,9 @@ require("formatter").setup({
         cpp = {
             require("formatter.filetypes.cpp").clangformat,
         },
+        c = {
+            require("formatter.filetypes.c").clangformat,
+        },
         json = {
             require("formatter.filetypes.json").fixjson,
             function()
