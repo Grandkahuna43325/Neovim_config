@@ -14,6 +14,8 @@ map("i", "<C-c>", "<C-c> :w <cr>")
 map("i", "jk", "<C-c>")
 map("i", "<esc>", "<C-c> :noh<cr>")
 map("n", "<esc>", ":noh <cr>")
+map("n", "<esc><esc>", ":pop <cr>")
+map("t", "<esc>", "<C-\\><C-n>")
 
 -- Undotree mappings
 map("n", "<Leader>u", ":UndotreeToggle <cr>", {desc = 'Undotree toggle'})
@@ -24,7 +26,7 @@ map("n", "<Leader>fw", ":Telescope live_grep <cr>", { desc = 'Telescope live gre
 map("n", "<Leader>th", ":Telescope colorscheme <cr>", { desc = 'Telescope colorscheme'})
 
 -- NvimTree mappings
-map("n", "<Leader>e", ":Neotree <cr>", { desc = 'Neotree'})
+map("n", "<Leader>e", ":Oil . <cr>", { desc = 'Neotree'})
 
 -- Harpoon mappings
 -- map("n", "<Leader>a", function() harpoon:list():append() end)

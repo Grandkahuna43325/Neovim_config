@@ -12,23 +12,24 @@ dap.listeners.before.event_exited["dapui_config"] = function()
     dapui.close()
 end
 
-dap.adapters.lldb = {
+dap.adapters.gdb = {
     type = "executable",
-    command = vim.fn.system('which lldb-vscode'):gsub('\n', '') or "/usr/bin/lldb-vscode", -- adjust as needed, must be absolute path
-    name = "lldb",
+    command = vim.fn.system("which gdb"):gsub("\n", "") or "/usr/bin/gdb", -- adjust as needed, must be absolute path
+    name = "gdb",
+    args = { "-i", "dap", "-ex", "set follow-fork-mode child", "-ex", "set detach-on-fork off" },
 }
 
 dap.configurations.cpp = {
     {
         name = "Launch file",
-        type = "lldb",
+        type = "gdb",
         request = "launch",
         program = function()
             return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
         end,
         cwd = "${workspaceFolder}",
         stopOnEntry = false,
-        args = {},
+        runInTerminal = true,
     },
 }
 dap.configurations.rust = dap.configurations.cpp

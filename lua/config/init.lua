@@ -14,6 +14,7 @@ vim.opt.autoindent = true
 vim.opt.shiftwidth = 2
 vim.opt.termguicolors = true
 
+vim.g.terminal_shell = 'zsh'
 vim.g.markdown_fenced_languages = {
   "ts=typescript"
 }

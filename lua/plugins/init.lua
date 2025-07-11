@@ -18,6 +18,21 @@ end
 
 lazy.setup({
     {
+        "stevearc/oil.nvim",
+        opts = {
+            columns = {
+                "icon",
+                "permissions",
+                "size",
+            },
+        },
+        -- Optional dependencies
+        dependencies = { { "echasnovski/mini.icons", opts = {} } },
+        -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
+        -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
+        lazy = false,
+    },
+    {
         "james-t-larson/posting.nvim",
         config = function()
             require("posting").setup({
@@ -177,12 +192,15 @@ lazy.setup({
         lazy = false,
         version = false, -- set this if you want to always pull the latest change
         opts = { -- add any opts hereby
-            provider = "openai",
-            openai = {
-                endpoint = "https://openrouter.ai/api/v1",
-                model = "anthropic/claude-3.5-sonnet",
-                api_key_name = "OPENROUTER_API_KEY", -- API key variable
-                temperature = 0,
+            providers = {
+                openai = {
+                    endpoint = "https://openrouter.ai/api/v1",
+                    model = "anthropic/claude-3.5-sonnet",
+                    api_key_name = "OPENROUTER_API_KEY", -- API key variable
+                    extra_request_body = {
+                        temperature = 0,
+                    },
+                },
             },
         },
         build = "make",
@@ -238,19 +256,19 @@ lazy.setup({
             require("plugins.configs.color-picker")
         end,
     },
-    {
-        "nvim-neo-tree/neo-tree.nvim",
-        branch = "v3.x",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-            "MunifTanjim/nui.nvim",
-            "3rd/image.nvim",
-        },
-        config = function()
-            require("plugins.configs.neo-tree")
-        end,
-    },
+    -- {
+    --     "nvim-neo-tree/neo-tree.nvim",
+    --     branch = "v3.x",
+    --     dependencies = {
+    --         "nvim-lua/plenary.nvim",
+    --         "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+    --         "MunifTanjim/nui.nvim",
+    --         "3rd/image.nvim",
+    --     },
+    --     config = function()
+    --         require("plugins.configs.neo-tree")
+    --     end,
+    -- },
     {
         "s1n7ax/nvim-window-picker",
         version = "2.*",
