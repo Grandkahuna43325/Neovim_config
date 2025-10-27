@@ -18,6 +18,78 @@ end
 
 lazy.setup({
     {
+        "pmizio/typescript-tools.nvim",
+        dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+        config = function()
+            require("plugins.configs.ts-tools")
+        end,
+    },
+    {
+        "mfussenegger/nvim-jdtls",
+        ft = "java",
+        config = function()
+            local jdtls = require("jdtls")
+            local home = os.getenv("HOME")
+
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = "java",
+                callback = function()
+                    local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }
+                    local root_dir = require("jdtls.setup").find_root(root_markers)
+                    if not root_dir then
+                        return
+                    end
+
+                    local project_name = vim.fn.fnamemodify(root_dir, ":p:h:t")
+                    local workspace_dir = home .. "/.cache/jdtls/workspace/" .. project_name
+
+                    local launcher_jar = vim.fn.glob(
+                        vim.fn.stdpath("data") .. "/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"
+                    )
+                    local config_dir = vim.fn.stdpath("data") .. "/mason/packages/jdtls/config_linux"
+
+                    local config = {
+                        cmd = {
+                            "java",
+                            "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+                            "-Dosgi.bundles.defaultStartLevel=4",
+                            "-Declipse.product=org.eclipse.jdt.ls.core.product",
+                            "-Xmx1g",
+                            "--add-modules=ALL-SYSTEM",
+                            "--add-opens",
+                            "java.base/java.util=ALL-UNNAMED",
+                            "--add-opens",
+                            "java.base/java.lang=ALL-UNNAMED",
+                            "-jar",
+                            launcher_jar,
+                            "-configuration",
+                            config_dir,
+                            "-data",
+                            workspace_dir,
+                        },
+                        root_dir = root_dir,
+                        settings = { java = {} },
+                    }
+
+                    jdtls.start_or_attach(config)
+                end,
+            })
+        end,
+    },
+    {
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v3.x",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+            "MunifTanjim/nui.nvim",
+        },
+        lazy = false,
+        config = function()
+            require("plugins.configs.neo-tree")
+        end,
+    },
+    {
         "stevearc/oil.nvim",
         opts = {
             columns = {
@@ -148,25 +220,25 @@ lazy.setup({
             },
         },
     },
-    {
-        "rest-nvim/rest.nvim",
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter",
-            opts = function(_, opts)
-                opts.ensure_installed = opts.ensure_installed or {}
-                table.insert(opts.ensure_installed, "http")
-            end,
-        },
-    },
-    {
-        "mistweaverco/kulala.nvim",
-        opts = {
-            display_mode = "float",
-            default_view = "headers_body",
-            default_winbar_panes = { "body", "headers", "headers_body" },
-            winbar = true,
-        },
-    },
+    -- {
+    --     "rest-nvim/rest.nvim",
+    --     dependencies = {
+    --         "nvim-treesitter/nvim-treesitter",
+    --         opts = function(_, opts)
+    --             opts.ensure_installed = opts.ensure_installed or {}
+    --             table.insert(opts.ensure_installed, "http")
+    --         end,
+    --     },
+    -- },
+    -- {
+    --     "mistweaverco/kulala.nvim",
+    --     opts = {
+    --         display_mode = "float",
+    --         default_view = "headers_body",
+    --         default_winbar_panes = { "body", "headers", "headers_body" },
+    --         winbar = true,
+    --     },
+    -- },
     -- {
     --     "heilgar/nvim-http-client",
     --     dependencies = {
@@ -195,7 +267,7 @@ lazy.setup({
             providers = {
                 openai = {
                     endpoint = "https://openrouter.ai/api/v1",
-                    model = "anthropic/claude-3.5-sonnet",
+                    model = "x-ai/grok-4-fast",
                     api_key_name = "OPENROUTER_API_KEY", -- API key variable
                     extra_request_body = {
                         temperature = 0,
@@ -530,19 +602,7 @@ lazy.setup({
         lazy = false,
         priority = 1000,
         config = function()
-            local i = require("moonfly").palette
-
-            local custom_highlight = vim.api.nvim_create_augroup("CustomHighlight", {})
-            vim.api.nvim_create_autocmd("ColorScheme", {
-                pattern = "moonfly",
-                callback = function()
-                    vim.api.nvim_set_hl(0, "NormalFloat", { bg = i.bg, fg = i.white })
-                end,
-                group = custom_highlight,
-            })
-
-            -- load the colorscheme here
-            vim.cmd([[colorscheme moonfly]])
+            require("plugins.configs.theme")
         end,
     },
 
@@ -613,44 +673,30 @@ lazy.setup({
         dependencies = {
             -- Automatically install LSPs and related tools to stdpath for Neovim
             { "williamboman/mason.nvim", config = true }, -- NOTE: Must be loaded before dependants
-            "williamboman/mason-lspconfig.nvim",
-            "WhoIsSethDaniel/mason-tool-installer.nvim",
+            -- "williamboman/mason-lspconfig.nvim",
+            -- "WhoIsSethDaniel/mason-tool-installer.nvim",
 
             -- Useful status updates for LSP.
             -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-            { "j-hui/fidget.nvim", opts = {} },
+            {
+                "j-hui/fidget.nvim",
+                tag = "v1.6.0", -- or remove this line if you're using the new version
+                opts = {
+                    notification = {
+                        window = {
+                            winblend = 0,
+                        },
+                    },
+                },
+            },
 
             -- Allows extra capabilities provided by nvim-cmp
             "hrsh7th/cmp-nvim-lsp",
         },
         config = function()
-            return require("plugins.configs.mason")
+            return require("plugins.configs.lsp")
         end,
     },
-
-    -- {
-    --     -- LSP Configuration & Plugins
-    --     "neovim/nvim-lspconfig",
-    --     init_options = {
-    --         userLanguages = {
-    --             eelixir = "html-eex",
-    --             eruby = "erb",
-    --             rust = "html",
-    --         },
-    --     },
-    --     dependencies = {
-    --         -- Automatically install LSPs to stdpath for neovim
-    --         { "williamboman/mason.nvim", config = true },
-    --         "williamboman/mason-lspconfig.nvim",
-    --
-    --         -- Useful status updates for LSP
-    --         -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-    --         { "j-hui/fidget.nvim", tag = "legacy", opts = {} },
-    --
-    --         -- Additional lua configuration, makes nvim stuff amazing!
-    --         "folke/neodev.nvim",
-    --     },
-    -- },
 
     {
         "L3MON4D3/LuaSnip",
@@ -680,90 +726,6 @@ lazy.setup({
     },
     { "onsails/lspkind.nvim" },
 
-    -- {
-    --     "VonHeikemen/lsp-zero.nvim",
-    --     branch = "v3.x",
-    --     config = function()
-    --         require("plugins.configs.lsp")
-    --     end,
-    --     dependencies = {
-    --         -- LSP Support
-    --         { "neovim/nvim-lspconfig" }, -- Required
-    --         { -- Optional
-    --             "williamboman/mason.nvim",
-    --             build = function()
-    --                 pcall(vim.cmd, "MasonUpdate")
-    --             end,
-    --         },
-    --         { "williamboman/mason-lspconfig.nvim" }, -- Optional
-    --
-    --         -- Autocompletion
-    --         { "hrsh7th/nvim-cmp" }, -- Required
-    --         { "hrsh7th/cmp-nvim-lsp" }, -- Required
-    --         { "L3MON4D3/LuaSnip" }, -- Required
-    --         { "rafamadriz/friendly-snippets" },
-    --
-    --         {
-    --             "hrsh7th/nvim-cmp",
-    --             event = "InsertEnter",
-    --             dependencies = {
-    --                 {
-    --                     -- snippet plugin
-    --                     "L3MON4D3/LuaSnip",
-    --                     dependencies = "rafamadriz/friendly-snippets",
-    --                     opts = { history = true, updateevents = "TextChanged,TextChangedI" },
-    --                     config = function(_, opts)
-    --                         require("plugins.configs.cmp").luasnip(opts)
-    --                     end,
-    --                 },
-    --
-    --                 -- autopairing of (){}[] etc
-    --                 {
-    --                     "windwp/nvim-autopairs",
-    --                     opts = {
-    --                         fast_wrap = {},
-    --                         disable_filetype = { "TelescopePrompt", "vim" },
-    --                     },
-    --                     config = function(_, opts)
-    --                         require("nvim-autopairs").setup(opts)
-    --
-    --                         -- setup cmp for autopairs
-    --                         local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-    --                         require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
-    --                     end,
-    --                 },
-    --
-    --                 -- cmp sources plugins
-    --                 {
-    --                     "saadparwaiz1/cmp_luasnip",
-    --                     "hrsh7th/cmp-nvim-lua",
-    --                     "hrsh7th/cmp-nvim-lsp",
-    --                     "hrsh7th/cmp-buffer",
-    --                     "hrsh7th/cmp-path",
-    --                 },
-    --             },
-    --
-    --             opts = function()
-    --                 return require("plugins.configs.cmp")
-    --             end,
-    --             config = function(_, opts)
-    --                 require("cmp").setup(opts)
-    --             end,
-    --         },
-    --     },
-    -- },
-
-    -- {
-    --     "williamboman/mason.nvim",
-    --     build = ":MasonUpdate", -- :MasonUpdate updates registry contents
-    --     cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
-    --     opts = function()
-    --         return require("plugins.configs.mason")
-    --     end,
-    --     config = function()
-    --         require("plugins.configs.mason")
-    --     end,
-    -- },
     { "nvim-neotest/nvim-nio" },
     {
         "mfussenegger/nvim-dap",

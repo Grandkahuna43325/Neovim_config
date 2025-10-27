@@ -27,6 +27,16 @@ require("formatter").setup({
                 }
             end,
         },
+        bash = {
+            require("formatter.filetypes.sh").shellharden,
+            function()
+                return {
+                    exe = "shellharden",
+                    stdin = true,
+                    args = {},
+                }
+            end,
+        },
         nix = {
             require("formatter.filetypes.nix").nixpkgs_fmt,
 
@@ -107,6 +117,9 @@ require("formatter").setup({
         },
         cpp = {
             require("formatter.filetypes.cpp").clangformat,
+        },
+        java = {
+            require("formatter.filetypes.java").clangformat,
         },
         c = {
             require("formatter.filetypes.c").clangformat,
