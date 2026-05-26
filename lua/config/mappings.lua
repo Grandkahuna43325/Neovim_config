@@ -13,24 +13,25 @@ vim.g.maplocalleader = " "
 map("i", "<C-c>", "<C-c> :w <cr>")
 map("i", "jk", "<C-c>")
 map("i", "<esc>", "<C-c> :noh<cr>")
+map("i", "<C-cr>", "<C-c> o")
 map("n", "<esc>", ":noh <cr>")
-map("n", "<esc><esc>", ":pop <cr>")
+map("n", "<esc><esc>", ":b# <cr>")
 map("t", "<esc>", "<C-\\><C-n>")
 
 -- Undotree mappings
-map("n", "<Leader>u", ":UndotreeToggle <cr>", {desc = 'Undotree toggle'})
+map("n", "<Leader>u", ":UndotreeToggle <cr>", { desc = "Undotree toggle" })
 
 -- Telescope mappings
-map("n", "<Leader>ff", ":Telescope find_files <cr>", { desc = 'Telescope find files'})
-map("n", "<Leader>fw", ":Telescope live_grep <cr>", { desc = 'Telescope live grep'})
-map("n", "<Leader>th", ":Telescope colorscheme <cr>", { desc = 'Telescope colorscheme'})
+map("n", "<Leader>ff", ":Telescope find_files <cr>", { desc = "Telescope find files" })
+map("n", "<Leader>fw", ":Telescope live_grep <cr>", { desc = "Telescope live grep" })
+map("n", "<Leader>th", ":Telescope colorscheme <cr>", { desc = "Telescope colorscheme" })
 
 -- NvimTree mappings
-map("n", "<Leader>e", ":Oil . <cr>", { desc = 'Neotree'})
+map("n", "<Leader>e", ":Oil . <cr>", { desc = "Neotree" })
 
 -- Harpoon mappings
 -- map("n", "<Leader>a", function() harpoon:list():append() end)
-map("n", "<Leader>tm", ':lua require("harpoon.ui").toggle_quick_menu() <cr>', { desc = 'harpoon quick menu'})
+map("n", "<Leader>tm", ':lua require("harpoon.ui").toggle_quick_menu() <cr>', { desc = "harpoon quick menu" })
 
 -- map("n", "<Leader>j", ":lua require('harpoon.ui').nav_file(1) <cr>")
 -- map("n", "<Leader>k", ":lua require('harpoon.ui').nav_file(2) <cr>")
@@ -39,12 +40,17 @@ map("n", "<Leader>tm", ':lua require("harpoon.ui").toggle_quick_menu() <cr>', { 
 -- map("n", "<Leader>m", ":Telescope harpoon marks <cr>")
 
 -- Comment
-map("n", "<Leader>/", ":lua require('Comment.api').toggle.linewise.current() <cr>", { desc = 'Comment line'})
-map("v", "<Leader>/", ":lua require('Comment.api').toggle.linewise(vim.fn.visualmode()) <cr>", { desc = 'Comment line'})
+map("n", "<Leader>/", ":lua require('Comment.api').toggle.linewise.current() <cr>", { desc = "Comment line" })
+map(
+    "v",
+    "<Leader>/",
+    ":lua require('Comment.api').toggle.linewise(vim.fn.visualmode()) <cr>",
+    { desc = "Comment line" }
+)
 
 --ChatGPT
-map("n", "<Leader>g", ":ChatGPT <cr>", { desc = 'ChatGPT'})
-map("v", "<Leader>g", "<cmd> ChatGPTEditWithInstructions <cr>", { desc = 'ChatGPTEditWithInstructions'})
+map("n", "<Leader>g", ":ChatGPT <cr>", { desc = "ChatGPT" })
+map("v", "<Leader>g", "<cmd> ChatGPTEditWithInstructions <cr>", { desc = "ChatGPTEditWithInstructions" })
 
 --Window stuff
 map("n", "<C-h>", "<C-w>h")
@@ -57,61 +63,75 @@ map("n", "j", "gj")
 map("n", "k", "gk")
 
 -- sessions
-map("n", "<leader>ns", "<cmd> mksession! session.vim <CR>", { desc = 'Create session file'})
-map("n", "<leader>rs", "<cmd> source session.vim <CR>", { desc = 'Source session file'})
+map("n", "<leader>ns", "<cmd> mksession! session.vim <CR>", { desc = "Create session file" })
+map("n", "<leader>rs", "<cmd> source session.vim <CR>", { desc = "Source session file" })
 
 -- formatter
-map("n", "<leader>=", "<cmd> Format <CR>", { desc = 'Format'})
-map("n", "<leader>sl", '<cmd> lua require("treesj").toggle() <CR>', { desc = 'Toggle treesj'})
+map("n", "<leader>=", "<cmd> Format <CR>", { desc = "Format" })
+map("n", "<leader>sl", '<cmd> lua require("treesj").toggle() <CR>', { desc = "Toggle treesj" })
 
 --github
-map("n", "<leader>ga", "<cmd> Git add * <CR>", { desc = 'Git add *'})
-map("n", "<leader>cm", "<cmd> Git commit <CR>", { desc = 'Git commit'})
-map("n", "<leader>gp", "<cmd> Git push <CR>", { desc = 'Git push'})
-map("n", "<leader>gd", "<cmd> Gdiff <CR>", { desc = 'Git diff'})
+map("n", "<leader>ga", "<cmd> Git add * <CR>", { desc = "Git add *" })
+map("n", "<leader>cm", "<cmd> Git commit <CR>", { desc = "Git commit" })
+map("n", "<leader>gp", "<cmd> Git push <CR>", { desc = "Git push" })
+map("n", "<leader>gd", "<cmd> Gdiff <CR>", { desc = "Git diff" })
 
 --tabs
 map("n", "<Tab>", "gt")
 
 --trouble
-map("n", "<leader>t", "<cmd> Trouble diagnostics toggle <CR>", { desc = 'Trouble diagnostics toggle'})
-map("n", "<leader>qn", "<cmd> lua require'trouble'.next({jump=true}) <CR>", { desc = 'Trouble jump to next'})
+map("n", "<leader>t", "<cmd> Trouble diagnostics toggle <CR>", { desc = "Trouble diagnostics toggle" })
+map("n", "<leader>qn", "<cmd> lua require'trouble'.next({jump=true}) <CR>", { desc = "Trouble jump to next" })
 
 --hop
-map("n", "<leader><space>", "<cmd> HopWord <CR>", { desc = 'HopWord'})
+map("n", "<leader><space>", "<cmd> HopWord <CR>", { desc = "HopWord" })
 
 -- worktree
-map("n", "<leader>gt", "<cmd> lua require('telescope').extensions.git_worktree.git_worktrees() <CR>", { desc = 'Telescope Git worktrees'})
+map(
+    "n",
+    "<leader>gt",
+    "<cmd> lua require('telescope').extensions.git_worktree.git_worktrees() <CR>",
+    { desc = "Telescope Git worktrees" }
+)
 -- <Enter> - switches to that worktree
 -- <c-d> - deletes that worktree
 -- <c-f> - toggles forcing of the next deletion
-map("n", "<leader>gcw", "<cmd> lua require('telescope').extensions.git_worktree.create_git_worktree() <CR>", { desc = 'Telescope create Git worktree'})
+map(
+    "n",
+    "<leader>gcw",
+    "<cmd> lua require('telescope').extensions.git_worktree.create_git_worktree() <CR>",
+    { desc = "Telescope create Git worktree" }
+)
 
---cmdline 
+--cmdline
 -- map("n", ":", "<cmd>FineCmdline<CR>")
 
---dap 
--- vim.keymap.set("n", "<Leader>dt", ":DapToggleBreakpoint<CR>")
--- vim.keymap.set("n", "<Leader>dx", ":DapTerminate<CR>")
--- vim.keymap.set("n", "<Leader>do", ":DapStepOver<CR>")
+--dap
 map("n", "<leader>db", "<cmd> !g++ --debug main.cpp -o main <CR> :lua require'dap'.continue()<cr>")
-map("n", "<leader>dt", ":lua require'dap'.toggle_breakpoint()<cr>")
-map("n", "<leader>dx", ":lua require'dap'.terminate()<cr>")
-map("n", "<leader>dc", ":lua require'dap'.continue()<cr>")
-map("n", "<leader>di", ":lua require'dap'.step_into()<cr>")
-map("n", "<leader>do", ":lua require'dap'.step_over()<cr>")
-map("n", "<leader>dO", ":lua require'dap'.step_out()<cr>")
-map("n", "<leader>dr", ":lua require'dap'.repl.open()<cr>")
+map("n", "<leader>dt", ":lua require'dap'.toggle_breakpoint()<cr>", {desc = "toggle breakpoint" })
+map("n", "<leader>dx", ":lua require'dap'.terminate()<cr>", {desc = "Dap: terminate"})
+map("n", "<leader>dc", ":lua require'dap'.continue()<cr>", {desc = "Dap: continue"})
+map("n", "<leader>di", ":lua require'dap'.step_into()<cr>", {desc = "Dap: step into"})
+map("n", "<leader>do", ":lua require'dap'.step_over()<cr>", {desc = "Dap: step over"})
+map("n", "<leader>dO", ":lua require'dap'.step_out()<cr>", {desc = "Dap: step out"})
+map("n", "<leader>dr", ":lua require'dap'.repl.open()<cr>", {desc = "Dap: repl open"})
+map("n", "<leader>df", ":lua require'dapui'.float_element('scopes')<cr>", {desc = "Dap: open variables float"})
+map("n", "<leader>dd", ":lua require'dapui'.float_element('watches')<cr>", {desc = "Dap: open locals float"})
 
 -- Kulala(requests)
-map("n", "<leader>rr", ":lua require('kulala').run()<cr>", {desc = 'Kulala run request'})
-map("n", "<leader>ri", ":lua require('kulala').inspect()<cr>", {desc = 'Kulala inspect'})
-map("n", "<leader>rs", ":lua require('kulala').show_stats()<cr>", {desc = 'Kulala show stats'})
-map("n", "<leader>rq", ":lua require('kulala').scratchpad()<cr>", {desc = 'Kulala quick request'})
+map("n", "<leader>rr", ":lua require('kulala').run()<cr>", { desc = "Kulala run request" })
+map("n", "<leader>ri", ":lua require('kulala').inspect()<cr>", { desc = "Kulala inspect" })
+map("n", "<leader>rs", ":lua require('kulala').show_stats()<cr>", { desc = "Kulala show stats" })
+map("n", "<leader>rq", ":lua require('kulala').scratchpad()<cr>", { desc = "Kulala quick request" })
 
---custom 
-map("n", "<leader>gcc", "<cmd> !g++ main.cpp -o main && ./main <CR>", { desc = 'Compile & run main.cpp'})
-map('n', '<leader>m', ':tab Man <C-r><C-w><CR>', { noremap = true, silent = true, desc = "open man page for current word" })
+--custom
+map("n", "<leader>gcc", "<cmd> !g++ main.cpp -o main && ./main <CR>", { desc = "Compile & run main.cpp" })
+map(
+    "n",
+    "<leader>m",
+    ":tab Man <C-r><C-w><CR>",
+    { noremap = true, silent = true, desc = "open man page for current word" }
+)
 
 -- local opts = { buffer = bufnr, remap = false }
 --

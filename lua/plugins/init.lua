@@ -28,52 +28,7 @@ lazy.setup({
         "mfussenegger/nvim-jdtls",
         ft = "java",
         config = function()
-            local jdtls = require("jdtls")
-            local home = os.getenv("HOME")
-
-            vim.api.nvim_create_autocmd("FileType", {
-                pattern = "java",
-                callback = function()
-                    local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }
-                    local root_dir = require("jdtls.setup").find_root(root_markers)
-                    if not root_dir then
-                        return
-                    end
-
-                    local project_name = vim.fn.fnamemodify(root_dir, ":p:h:t")
-                    local workspace_dir = home .. "/.cache/jdtls/workspace/" .. project_name
-
-                    local launcher_jar = vim.fn.glob(
-                        vim.fn.stdpath("data") .. "/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"
-                    )
-                    local config_dir = vim.fn.stdpath("data") .. "/mason/packages/jdtls/config_linux"
-
-                    local config = {
-                        cmd = {
-                            "java",
-                            "-Declipse.application=org.eclipse.jdt.ls.core.id1",
-                            "-Dosgi.bundles.defaultStartLevel=4",
-                            "-Declipse.product=org.eclipse.jdt.ls.core.product",
-                            "-Xmx1g",
-                            "--add-modules=ALL-SYSTEM",
-                            "--add-opens",
-                            "java.base/java.util=ALL-UNNAMED",
-                            "--add-opens",
-                            "java.base/java.lang=ALL-UNNAMED",
-                            "-jar",
-                            launcher_jar,
-                            "-configuration",
-                            config_dir,
-                            "-data",
-                            workspace_dir,
-                        },
-                        root_dir = root_dir,
-                        settings = { java = {} },
-                    }
-
-                    jdtls.start_or_attach(config)
-                end,
-            })
+          require("plugins.configs.jdtls")
         end,
     },
     {
@@ -397,11 +352,11 @@ lazy.setup({
             apm:toggle_monitor()
         end,
     },
-    {
-        "barrett-ruth/live-server.nvim",
-        build = "yarn global add live-server",
-        config = true,
-    },
+    -- {
+    --     "barrett-ruth/live-server.nvim",
+    --     build = "yarn global add live-server",
+    --     config = true,
+    -- },
     {
         "smoka7/hop.nvim",
         config = function()
@@ -435,25 +390,18 @@ lazy.setup({
     },
 
     -- {
-    --     "simrat39/rust-tools.nvim",
+    --     "freddiehaddad/feline.nvim",
+    --     opts = {},
     --     config = function()
-    --         return require("plugins.configs.rust-tools")
+    --         require("feline").setup({
+    --             theme = {
+    --                 bg = "NONE",
+    --                 black = "NONE",
+    --                 oceanblue = "#002262",
+    --             },
+    --         })
     --     end,
     -- },
-
-    {
-        "freddiehaddad/feline.nvim",
-        opts = {},
-        config = function()
-            require("feline").setup({
-                theme = {
-                    bg = "NONE",
-                    black = "NONE",
-                    oceanblue = "#002262",
-                },
-            })
-        end,
-    },
     {
         "lukas-reineke/indent-blankline.nvim",
         main = "ibl",
@@ -631,6 +579,7 @@ lazy.setup({
             "nvim-treesitter/nvim-treesitter-context",
         },
         build = ":TSUpdate",
+        branch = "main",
     },
 
     {
@@ -673,11 +622,8 @@ lazy.setup({
         dependencies = {
             -- Automatically install LSPs and related tools to stdpath for Neovim
             { "williamboman/mason.nvim", config = true }, -- NOTE: Must be loaded before dependants
-            -- "williamboman/mason-lspconfig.nvim",
+            "williamboman/mason-lspconfig.nvim",
             -- "WhoIsSethDaniel/mason-tool-installer.nvim",
-
-            -- Useful status updates for LSP.
-            -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
             {
                 "j-hui/fidget.nvim",
                 tag = "v1.6.0", -- or remove this line if you're using the new version
@@ -723,6 +669,13 @@ lazy.setup({
         config = function()
             require("plugins.configs.cmp")
         end,
+        opts = function(_, opts)
+            opts.sources = opts.sources or {}
+            table.insert(opts.sources, {
+                name = "lazydev",
+                group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+            })
+        end,
     },
     { "onsails/lspkind.nvim" },
 
@@ -736,13 +689,17 @@ lazy.setup({
             { "nvim-neotest/nvim-nio" },
         },
     },
-    { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" }, event = "VeryLazy" },
     {
-        "folke/neodev.nvim",
-        opts = {},
+        "rcarriga/nvim-dap-ui",
+
+        dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+    },
+    {
+        "theHamsta/nvim-dap-virtual-text",
         config = function()
-            require("neodev").setup({
-                library = { plugins = { "nvim-dap-ui" }, types = true },
+            require("nvim-dap-virtual-text").setup({
+                virt_text_win_col = 80,
+                highlight_changed_variables = true,
             })
         end,
     },
